@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore Our Courses | VISION TO HUMAN SOCIETY</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#8a2be2',secondary:'#00bfff'},borderRadius:{'none':'0px','sm':'8px',DEFAULT:'12px','md':'16px','lg':'20px','xl':'24px','2xl':'28px','3xl':'32px','full':'9999px','button':'12px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+background-color: #121212;
+color: #e0e0e0;
+}
+.gradient-text {
+background: linear-gradient(90deg, #00bfff, #8a2be2);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+.course-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
+}
+.custom-checkbox {
+appearance: none;
+-webkit-appearance: none;
+width: 20px;
+height: 20px;
+border: 2px solid #666;
+border-radius: 4px;
+outline: none;
+cursor: pointer;
+position: relative;
+background-color: #2a2a2a;
+}
+.custom-checkbox:checked {
+background-color: #8a2be2;
+border-color: #8a2be2;
+}
+.custom-checkbox:checked::after {
+content: '';
+position: absolute;
+top: 2px;
+left: 6px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-range {
+-webkit-appearance: none;
+width: 100%;
+height: 6px;
+background: #2a2a2a;
+border-radius: 5px;
+outline: none;
+}
+.custom-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+background: #8a2be2;
+border-radius: 50%;
+cursor: pointer;
+}
+.custom-range::-moz-range-thumb {
+width: 18px;
+height: 18px;
+background: #8a2be2;
+border-radius: 50%;
+cursor: pointer;
+}
+</style>
+</head>
+<body class="min-h-screen">
+<!-- Header with Hero Section -->
+
+<!-- Hero Section -->
+<!-- Quick Category Filters -->
+<section class="bg-[#1a1a1a] py-8 border-b border-[#333]">
+<div class="container mx-auto px-4">
+<div class="flex flex-wrap justify-center gap-4">
+<button class="px-5 py-2 bg-primary bg-opacity-20 text-primary rounded-full hover:bg-opacity-30 transition whitespace-nowrap">
+<i class="ri-user-heart-line mr-2"></i>Personal Development
+</button>
+<button class="px-5 py-2 bg-[#2a2a2a] text-gray-300 rounded-full hover:bg-[#333] transition whitespace-nowrap">
+<i class="ri-code-s-slash-line mr-2"></i>Web Technology
+</button>
+<button class="px-5 py-2 bg-[#2a2a2a] text-gray-300 rounded-full hover:bg-[#333] transition whitespace-nowrap">
+<i class="ri-flask-line mr-2"></i>Science & Technical
+</button>
+<button class="px-5 py-2 bg-[#2a2a2a] text-gray-300 rounded-full hover:bg-[#333] transition whitespace-nowrap">
+<i class="ri-palette-line mr-2"></i>Arts & Creativity
+</button>
+<button class="px-5 py-2 bg-[#2a2a2a] text-gray-300 rounded-full hover:bg-[#333] transition whitespace-nowrap">
+<i class="ri-translate-2 mr-2"></i>Language & Communication
+</button>
+</div>
+</div>
+</section>
+<!-- Main Content -->
+<section class="py-12 bg-[#121212]">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Sidebar Filters -->
+<div class="w-full md:w-1/4 bg-[#1a1a1a] p-6 rounded-lg h-fit">
+<div class="mb-8">
+<h3 class="text-xl font-semibold mb-4 text-white">Filter Courses</h3>
+<div class="mb-6">
+<h4 class="font-medium mb-3 text-gray-300">Skill Level</h4>
+<div class="space-y-2">
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Beginner</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Intermediate</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Advanced</span>
+</label>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="font-medium mb-3 text-gray-300">Duration</h4>
+<div class="space-y-2">
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Under 5 hours</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">5-10 hours</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">10-20 hours</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">20+ hours</span>
+</label>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="font-medium mb-3 text-gray-300">Price Range</h4>
+<input type="range" min="0" max="500" value="250" class="custom-range mb-2">
+<div class="flex justify-between text-sm text-gray-400">
+<span>$0</span>
+<span>$250</span>
+<span>$500</span>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="font-medium mb-3 text-gray-300">Language</h4>
+<select class="w-full bg-[#2a2a2a] text-gray-300 p-2 rounded border border-[#444] focus:outline-none focus:border-primary pr-8">
+<option>All Languages</option>
+<option>English</option>
+<option>Spanish</option>
+<option>French</option>
+<option>German</option>
+<option>Chinese</option>
+<option>Japanese</option>
+</select>
+</div>
+<div class="mb-6">
+<h4 class="font-medium mb-3 text-gray-300">Format</h4>
+<div class="space-y-2">
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Video Lessons</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Live Sessions</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Hybrid</span>
+</label>
+</div>
+</div>
+<div>
+<h4 class="font-medium mb-3 text-gray-300">Certification</h4>
+<div class="space-y-2">
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Certificate Included</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="checkbox" class="custom-checkbox mr-3">
+<span class="text-gray-300">Accredited</span>
+</label>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary hover:bg-opacity-90 text-white px-4 py-2 rounded-button font-medium transition whitespace-nowrap w-full">Apply Filters</button>
+<button class="bg-transparent border border-[#444] text-gray-300 px-4 py-2 rounded-button font-medium transition hover:bg-[#2a2a2a] whitespace-nowrap w-full">Reset</button>
+</div>
+</div>
+<!-- Course Listings -->
+<div class="w-full md:w-3/4">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold text-white">Personal Development Courses</h2>
+<div class="flex items-center">
+<span class="text-gray-400 mr-2">Sort by:</span>
+<select class="bg-[#2a2a2a] text-gray-300 p-2 rounded border border-[#444] focus:outline-none focus:border-primary pr-8">
+<option>Most Popular</option>
+<option>Newest</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Rating</option>
+</select>
+</div>
+</div>
+<!-- Featured Course -->
+<div class="bg-gradient-to-r from-[#1e1e1e] to-[#2a2a2a] rounded-lg overflow-hidden mb-8 border border-[#333] hover:border-primary transition">
+<div class="flex flex-col md:flex-row">
+<div class="md:w-2/5 h-64 md:h-auto" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20mindfulness%20meditation%20coaching%20session%20with%20diverse%20group%20of%20people%20in%20modern%20minimalist%20space%2C%20soft%20lighting%2C%20focus%20on%20personal%20growth%20and%20mental%20wellbeing%2C%20high%20quality%20professional%20photography&width=600&height=400&seq=course1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+<div class="md:w-3/5 p-6">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="bg-primary bg-opacity-20 text-primary text-xs px-3 py-1 rounded-full">Featured</span>
+<span class="bg-[#2a2a2a] text-gray-300 text-xs px-3 py-1 rounded-full ml-2">Bestseller</span>
+</div>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.9</span>
+<span class="text-gray-400 text-sm ml-1">(2,345)</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-white mb-2">Mindfulness Mastery: Transform Your Life Through Conscious Living</h3>
+<p class="text-gray-300 mb-4">Develop powerful mindfulness techniques to reduce stress, improve focus, and enhance your overall well-being with this comprehensive course led by Dr. Eleanor Richardson.</p>
+<div class="flex flex-wrap gap-4 mb-4">
+<div class="flex items-center text-gray-400">
+<i class="ri-time-line mr-2"></i>
+<span>12 weeks</span>
+</div>
+<div class="flex items-center text-gray-400">
+<i class="ri-vidicon-line mr-2"></i>
+<span>48 lessons</span>
+</div>
+<div class="flex items-center text-gray-400">
+<i class="ri-user-line mr-2"></i>
+<span>All levels</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<span class="text-2xl font-bold text-white">₹9,999</span>
+<span class="text-gray-400 line-through ml-2">₹14,999</span>
+</div>
+<button class="bg-primary hover:bg-opacity-90 text-white px-6 py-2 rounded-button font-medium transition whitespace-nowrap">Enroll Now</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Course Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Course Card 1 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20public%20speaking%20training%20session%20with%20confident%20presenter%20on%20stage%20with%20audience%2C%20business%20setting%2C%20professional%20lighting%2C%20focus%20on%20communication%20skills&width=400&height=250&seq=course2&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute top-3 left-3">
+<span class="bg-[#2a2a2a] text-gray-300 text-xs px-3 py-1 rounded-full">Popular</span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Communication</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.7</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Public Speaking Mastery</h3>
+<p class="text-gray-400 text-sm mb-4">Overcome stage fright and deliver compelling presentations with confidence in any setting.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹6,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20emotional%20intelligence%20workshop%20with%20diverse%20participants%20engaged%20in%20team%20building%20exercise%2C%20modern%20corporate%20training%20room%2C%20focus%20on%20interpersonal%20skills%20development&width=400&height=250&seq=course3&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute top-3 left-3">
+<span class="bg-primary bg-opacity-20 text-primary text-xs px-3 py-1 rounded-full">New</span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Psychology</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.8</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Emotional Intelligence at Work</h3>
+<p class="text-gray-400 text-sm mb-4">Develop your EQ to improve relationships, leadership skills, and career prospects.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹5,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20time%20management%20and%20productivity%20coaching%20session%20with%20business%20professionals%20using%20planners%20and%20digital%20tools%2C%20organized%20workspace%2C%20focus%20on%20efficiency%20skills&width=400&height=250&seq=course4&orientation=landscape'); background-size: cover; background-position: center;">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Productivity</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.6</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Time Management Essentials</h3>
+<p class="text-gray-400 text-sm mb-4">Master proven techniques to prioritize tasks, eliminate distractions, and achieve more.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹4,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Web Technology Section -->
+<div class="mt-12">
+<h2 class="text-2xl font-bold text-white mb-8">Web Technology Courses</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Course Card 1 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20web%20development%20coding%20session%20with%20multiple%20screens%20showing%20javascript%20code%2C%20modern%20tech%20workspace%2C%20focus%20on%20programming%20skills&width=400&height=250&seq=course5&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute top-3 left-3">
+<span class="bg-[#2a2a2a] text-gray-300 text-xs px-3 py-1 rounded-full">Bestseller</span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Programming</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.9</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Full-Stack JavaScript Development</h3>
+<p class="text-gray-400 text-sm mb-4">Master Node.js, React, and MongoDB to build modern web applications from scratch.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹9,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20UI%20UX%20design%20workshop%20with%20designers%20working%20on%20wireframes%20and%20prototypes%2C%20creative%20digital%20workspace%20with%20multiple%20screens%2C%20focus%20on%20design%20skills&width=400&height=250&seq=course6&orientation=landscape'); background-size: cover; background-position: center;">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Design</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.7</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">UI/UX Design Fundamentals</h3>
+<p class="text-gray-400 text-sm mb-4">Learn to create intuitive, accessible, and visually appealing user interfaces.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹7,499</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20cybersecurity%20training%20with%20security%20experts%20analyzing%20code%20and%20network%20data%20on%20multiple%20screens%2C%20high-tech%20security%20operations%20center%2C%20focus%20on%20digital%20security%20skills&width=400&height=250&seq=course7&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute top-3 left-3">
+<span class="bg-primary bg-opacity-20 text-primary text-xs px-3 py-1 rounded-full">Hot</span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Security</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.8</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Cybersecurity Fundamentals</h3>
+<p class="text-gray-400 text-sm mb-4">Protect systems and data from threats with essential security principles and practices.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹8,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Science & Technical Section -->
+<div class="mt-12">
+<h2 class="text-2xl font-bold text-white mb-8">Science & Technical Courses</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Course Card 1 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20data%20science%20workshop%20with%20analysts%20working%20with%20visualizations%20and%20machine%20learning%20models%2C%20modern%20tech%20lab%20with%20multiple%20screens%2C%20focus%20on%20analytical%20skills&width=400&height=250&seq=course8&orientation=landscape'); background-size: cover; background-position: center;">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Data Science</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.9</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Data Science with Python</h3>
+<p class="text-gray-400 text-sm mb-4">Master data analysis, visualization, and machine learning using Python and its libraries.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹11,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20robotics%20engineering%20lab%20with%20advanced%20robots%20and%20technical%20equipment%2C%20engineers%20working%20on%20robotic%20arms%2C%20high-tech%20workspace%2C%20focus%20on%20engineering%20skills&width=400&height=250&seq=course9&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute top-3 left-3">
+<span class="bg-[#2a2a2a] text-gray-300 text-xs px-3 py-1 rounded-full">Advanced</span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Engineering</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.7</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Robotics Engineering</h3>
+<p class="text-gray-400 text-sm mb-4">Design, build, and program robots with practical applications in various industries.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹13,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#333] hover:border-primary transition course-card">
+<div class="h-48 relative" style="background-image: url('https://readdy.ai/api/search-image?query=professional%20renewable%20energy%20engineering%20workshop%20with%20solar%20panels%20and%20wind%20turbine%20models%2C%20sustainable%20technology%20lab%2C%20focus%20on%20green%20energy%20skills&width=400&height=250&seq=course10&orientation=landscape'); background-size: cover; background-position: center;">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-primary font-medium">Sustainability</span>
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400 mr-1"></i>
+<span class="text-white">4.8</span>
+</div>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Renewable Energy Systems</h3>
+<p class="text-gray-400 text-sm mb-4">Explore solar, wind, and other sustainable energy technologies and applications.</p>
+<div class="flex justify-between items-center">
+<span class="text-lg font-bold text-white">₹9,999</span>
+<button class="bg-[#2a2a2a] hover:bg-[#333] text-white px-4 py-2 rounded-button text-sm transition whitespace-nowrap">View Course</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center">
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2a] text-gray-400 hover:bg-[#333] hover:text-white mr-2">
+<i class="ri-arrow-left-s-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white mr-2">1</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2a] text-gray-300 hover:bg-[#333] hover:text-white mr-2">2</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2a] text-gray-300 hover:bg-[#333] hover:text-white mr-2">3</a>
+<span class="text-gray-500 mx-2">...</span>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2a] text-gray-300 hover:bg-[#333] hover:text-white mr-2">12</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#2a2a2a] text-gray-400 hover:bg-[#333] hover:text-white">
+<i class="ri-arrow-right-s-line"></i>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="py-16 bg-[#1a1a1a]">
+<div class="container mx-auto px-4">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="text-3xl font-bold text-white mb-4">Stay Updated with New Courses</h2>
+<p class="text-gray-300 mb-8">Subscribe to our newsletter and be the first to know about new course launches, special offers, and educational resources.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<input type="email" placeholder="Enter your email address" class="bg-[#2a2a2a] text-gray-300 px-4 py-3 rounded-button border-none focus:outline-none focus:ring-2 focus:ring-primary w-full sm:w-96">
+<button class="bg-primary hover:bg-opacity-90 text-white px-6 py-3 rounded-button font-medium transition whitespace-nowrap">Subscribe</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#121212] pt-16 pb-8 border-t border-[#333]">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+<div class="lg:col-span-2">
+<div class="flex items-center mb-4">
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-3">
+<i class="ri-eye-line text-white ri-lg"></i>
+</div>
+<h3 class="text-xl font-['Pacifico'] text-white">VISION TO HUMAN SOCIETY</h3>
+</div>
+<p class="text-gray-400 mb-6">Empowering individuals through education to reach their full potential and make a positive impact on society.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 rounded-full bg-[#2a2a2a] flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 rounded-full bg-[#2a2a2a] flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition">
+<i class="ri-twitter-x-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 rounded-full bg-[#2a2a2a] flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 rounded-full bg-[#2a2a2a] flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition">
+<i class="ri-linkedin-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Courses</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Personal Development</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Web Technology</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Science & Technical</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Arts & Creativity</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Language & Communication</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Company</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-primary transition">About Us</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Careers</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Blog</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Partners</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Become an Instructor</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-4">Support</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Help Center</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Contact Us</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Privacy Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Terms of Service</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition">Accessibility</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-[#333] flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Vision to Human Society. All rights reserved.</p>
+<div class="flex items-center space-x-4">
+<i class="ri-visa-fill text-gray-400 text-2xl"></i>
+<i class="ri-mastercard-fill text-gray-400 text-2xl"></i>
+<i class="ri-paypal-fill text-gray-400 text-2xl"></i>
+<i class="ri-apple-fill text-gray-400 text-2xl"></i>
+<i class="ri-google-fill text-gray-400 text-2xl"></i>
+</div>
+</div>
+</div>
+</footer>
+<script id="filterInteractions">
+document.addEventListener('DOMContentLoaded', function() {
+// Custom checkbox functionality
+const checkboxes = document.querySelectorAll('.custom-checkbox');
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('click', function() {
+this.checked = !this.checked;
+});
+});
+// Price range slider
+const priceRange = document.querySelector('.custom-range');
+if (priceRange) {
+priceRange.addEventListener('input', function() {
+const priceDisplay = this.nextElementSibling.children[1];
+priceDisplay.textContent = '$' + this.value;
+});
+}
+});
+</script>
+<script id="courseInteractions">
+document.addEventListener('DOMContentLoaded', function() {
+// Course card hover effects
+const courseCards = document.querySelectorAll('.course-card');
+courseCards.forEach(card => {
+card.addEventListener('mouseenter', function() {
+this.classList.add('transform', 'scale-[1.02]', 'shadow-lg');
+this.querySelector('button').classList.add('bg-primary');
+this.querySelector('button').classList.remove('bg-[#2a2a2a]', 'hover:bg-[#333]');
+});
+card.addEventListener('mouseleave', function() {
+this.classList.remove('transform', 'scale-[1.02]', 'shadow-lg');
+if (!this.querySelector('button').classList.contains('enrolled')) {
+this.querySelector('button').classList.remove('bg-primary');
+this.querySelector('button').classList.add('bg-[#2a2a2a]', 'hover:bg-[#333]');
+}
+});
+});
+// Category filter buttons
+const filterButtons = document.querySelectorAll('section:nth-child(3) button');
+filterButtons.forEach(button => {
+button.addEventListener('click', function() {
+filterButtons.forEach(btn => {
+btn.classList.remove('bg-primary', 'bg-opacity-20', 'text-primary');
+btn.classList.add('bg-[#2a2a2a]', 'text-gray-300');
+});
+this.classList.remove('bg-[#2a2a2a]', 'text-gray-300');
+this.classList.add('bg-primary', 'bg-opacity-20', 'text-primary');
+});
+});
+});
+</script>
+</body>
+</html>

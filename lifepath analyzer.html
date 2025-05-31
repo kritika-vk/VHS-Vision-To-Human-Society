@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VHS - Your Life Path Analyzer</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background-image:url(base.jpeg)
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .wave {
+            animation: wave 2s infinite;
+        }
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4 cursor-pointer" onclick="showPage('home')">
+                    <i class="fas fa-route text-2xl wave"></i>
+                    <span  class="text-2xl font-bold"><B >VHS LIFE PATH ANALYZER</B></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a class="nav-link hover:text-gray-200" data-page="home">Home</a>
+                    <a class="nav-link hover:text-gray-200" data-page="analysis">Analysis</a>
+                    <a class="nav-link hover:text-gray-200" data-page="about">About</a>
+                    <a class="nav-link hover:text-gray-200" data-page="contact">Contact</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2 pb-2">
+                <a class="block nav-link hover:bg-purple-700 px-3 py-2 rounded" data-page="home">Home</a>
+                <a class="block nav-link hover:bg-purple-700 px-3 py-2 rounded" data-page="analysis">Analysis</a>
+                <a class="block nav-link hover:bg-purple-700 px-3 py-2 rounded" data-page="about">About</a>
+                <a class="block nav-link hover:bg-purple-700 px-3 py-2 rounded" data-page="contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <!-- Hero Section -->
+        <div class="gradient-bg text-white py-20">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">Discover Your <span class="text-yellow-300">Unique Life Path</span></h1>
+                    <p class="text-xl mb-8">Our AI-powered analysis reveals your strengths, challenges, and opportunities based on your personal data and psychological patterns.</p>
+                    <button onclick="showPage('analysis')" class="bg-white text-purple-600 font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition duration-300 shadow-lg">
+                        Get Started Now <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-800">How PathFinder AI Helps You</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our advanced algorithms analyze multiple dimensions of your personality and life circumstances to provide meaningful insights.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-xl card-hover">
+                        <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mb-6">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Personality Insights</h3>
+                        <p class="text-gray-600">Discover your core personality traits and how they influence your decision-making and relationships.</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-8 rounded-xl card-hover">
+                        <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mb-6">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Career Alignment</h3>
+                        <p class="text-gray-600">Identify careers and vocations that align with your natural talents and personal values.</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-8 rounded-xl card-hover">
+                        <div class="w-16 h-16 gradient-bg rounded-full flex items-center justify-center text-white text-2xl mb-6">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Relationship Patterns</h3>
+                        <p class="text-gray-600">Understand your relationship dynamics and how to create more fulfilling connections.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-gray-800">What People Are Saying</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Real stories from individuals who discovered their path with our AI analysis.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-sm card-hover">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400 text-xl">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-6">"The analysis helped me understand why I was unhappy in my corporate job. It suggested creative fields I'd never considered, and now I'm pursuing graphic design!"</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white font-bold mr-4">SM</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Sarah M.</h4>
+                                <p class="text-gray-500 text-sm">Graphic Designer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-sm card-hover">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400 text-xl">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-6">"I was skeptical at first, but the relationship insights were incredibly accurate. It helped me understand patterns in my dating life and make better choices."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white font-bold mr-4">DJ</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">David J.</h4>
+                                <p class="text-gray-500 text-sm">Software Engineer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-sm card-hover">
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400 text-xl">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-6">"The career suggestions were spot-on. At 35, I switched to environmental science and finally feel like I'm making a difference. Worth every penny!"</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full gradient-bg flex items-center justify-center text-white font-bold mr-4">TP</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Tara P.</h4>
+                                <p class="text-gray-500 text-sm">Environmental Scientist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="gradient-bg text-white py-16">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Discover Your True Path?</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands who have gained clarity and direction through our AI-powered life path analysis.</p>
+                <button onclick="showPage('analysis')" class="bg-white text-purple-600 font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition duration-300 shadow-lg text-lg">
+                    Begin Your Journey Now <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+    </section>
+
+    <!-- Analysis Page -->
+    <section id="analysis" class="page">
+        <div class="gradient-bg text-white py-16">
+            <div class="container mx-auto px-6">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Life Path Analysis</h1>
+                <p class="text-xl">Complete the form below to receive your personalized analysis</p>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-6 py-12 max-w-4xl">
+            <div class="bg-white rounded-xl shadow-xl p-6 md:p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Your Personal Path Analysis</h2>
+                    <p class="text-gray-600 mt-2">Fill in the details to get your customized life path report</p>
+                </div>
+                
+                <form id="lifePathForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                        </div>
+                        <div>
+                            <label for="birthdate" class="block text-gray-700 font-medium mb-2">Birth Date</label>
+                            <input type="date" id="birthdate" name="birthdate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="interests" class="block text-gray-700 font-medium mb-2">Your Top Interests (Select 3-5)</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="technology" class="rounded text-purple-500">
+                                <span>Technology</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="arts" class="rounded text-purple-500">
+                                <span>Arts</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="science" class="rounded text-purple-500">
+                                <span>Science</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="business" class="rounded text-purple-500">
+                                <span>Business</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="health" class="rounded text-purple-500">
+                                <span>Health</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="education" class="rounded text-purple-500">
+                                <span>Education</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="environment" class="rounded text-purple-500">
+                                <span>Environment</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="spirituality" class="rounded text-purple-500">
+                                <span>Spirituality</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="personality" class="block text-gray-700 font-medium mb-2">Describe Your Personality in 3 Words</label>
+                        <input type="text" id="personality" name="personality" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="e.g. Creative, Analytical, Compassionate" required>
+                    </div>
+                    
+                    <div>
+                        <label for="lifeQuestion" class="block text-gray-700 font-medium mb-2">What's Your Biggest Life Question Right Now?</label>
+                        <textarea id="lifeQuestion" name="lifeQuestion" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="gradient-bg text-white font-bold px-8 py-3 rounded-full hover:opacity-90 transition duration-300 w-full">
+                            Analyze My Path <i class="fas fa-chart-line ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Section (Hidden by default) -->
+        <div id="resultsSection" class="hidden py-16 bg-purple-50">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+                    <div class="gradient-bg text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-2xl font-bold">Your Personal Path Analysis</h2>
+                            <button id="closeResults" class="text-white hover:text-gray-200">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        <p class="mt-2 opacity-90">Generated on <span id="reportDate"></span></p>
+                    </div>
+                    
+                    <div class="p-6 md:p-8">
+                        <div class="flex items-center mb-8">
+                            <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center text-white text-3xl font-bold mr-6" id="userInitials"></div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800" id="userName"></h3>
+                                <p class="text-gray-600" id="userBirthdate"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-700 mb-2">Life Path Number</h4>
+                                <div class="text-4xl font-bold gradient-text text-center py-4" id="lifePathNumber">7</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-700 mb-2">Primary Strength</h4>
+                                <div class="text-xl font-bold text-purple-600 text-center py-4" id="primaryStrength">Analytical</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-bold text-gray-700 mb-2">Growth Area</h4>
+                                <div class="text-xl font-bold text-purple-600 text-center py-4" id="growthArea">Emotional Expression</div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Core Personality Traits</h3>
+                                <div class="flex flex-wrap gap-2 mb-4" id="personalityTraits">
+                                    <!-- Filled by JavaScript -->
+                                </div>
+                                <p class="text-gray-700" id="personalityDescription"></p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Career Recommendations</h3>
+                                <div class="space-y-4" id="careerRecommendations">
+                                    <!-- Filled by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Relationship Insights</h3>
+                                <p class="text-gray-700" id="relationshipInsights"></p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Answer to Your Life Question</h3>
+                                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                                    <p class="font-medium text-gray-800 mb-2">Your Question:</p>
+                                    <p class="text-gray-700 italic mb-4" id="userQuestion"></p>
+                                    <p class="font-medium text-gray-800 mb-2">AI Insight:</p>
+                                    <p class="text-gray-700" id="lifeAnswer"></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12 pt-8 border-t border-gray-200">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Next Steps</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-white border border-purple-200 rounded-lg p-6 shadow-sm">
+                                    <h4 class="font-bold text-purple-600 mb-3">Download Full Report</h4>
+                                    <p class="text-gray-600 mb-4">Get your complete 15-page analysis with detailed explanations and action plans.</p>
+                                    <button class="gradient-bg text-white font-bold px-6 py-2 rounded-lg hover:opacity-90 transition duration-300 w-full">
+                                        Download PDF <i class="fas fa-download ml-2"></i>
+                                    </button>
+                                </div>
+                                <div class="bg-white border border-purple-200 rounded-lg p-6 shadow-sm">
+                                    <h4 class="font-bold text-purple-600 mb-3">Book a Consultation</h4>
+                                    <p class="text-gray-600 mb-4">Discuss your results with one of our certified life path counselors.</p>
+                                    <button class="bg-white border border-purple-600 text-purple-600 font-bold px-6 py-2 rounded-lg hover:bg-purple-50 transition duration-300 w-full">
+                                        Schedule Session <i class="fas fa-calendar-alt ml-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page">
+        <div class="gradient-bg text-white py-16">
+            <div class="container mx-auto px-6">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">About PathFinder AI</h1>
+                <p class="text-xl">Learn about our mission, technology, and team</p>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row items-center mb-16">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <img src="lifepathy.png" alt="Our Technology" class="w-full max-w-md mx-auto">
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Technology</h2>
+                    <p class="text-gray-600 mb-6">PathFinder AI combines cutting-edge artificial intelligence with psychological research to provide personalized life path analysis. Our system uses machine learning algorithms trained on thousands of personality profiles and life outcomes.</p>
+                    <p class="text-gray-600">The platform integrates multiple psychological models including the Big Five personality traits, Holland's RIASEC model for career assessment, and positive psychology frameworks to deliver comprehensive insights.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row-reverse items-center mb-16">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <img src="ourmission.png" alt="Our Mission" class="w-full max-w-md mx-auto">
+                </div>
+                <div class="md:w-1/2 md:pr-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Mission</h2>
+                    <p class="text-gray-600 mb-6">We believe everyone deserves access to personalized guidance for navigating life's complex decisions. Traditional career counseling and life coaching are often expensive and inaccessible to many.</p>
+                    <p class="text-gray-600">Our mission is to democratize self-discovery by making AI-powered life path analysis affordable, accessible, and scientifically validated. We're committed to helping individuals find clarity, purpose, and direction in their personal and professional lives.</p>
+                </div>
+            </div>
+
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Meet Our Team</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We're a diverse team of psychologists, data scientists, and engineers passionate about helping people discover their potential.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm text-center card-hover">
+                    <div class="w-32 h-32 gradient-bg rounded-full mx-auto mb-6 flex items-center justify-center text-white text-4xl font-bold">JD</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Dr. Jane Doe</h3>
+                    <p class="text-purple-600 font-medium mb-4">Chief Psychologist</p>
+                    <p class="text-gray-600">PhD in Clinical Psychology with 15 years of experience in career counseling and personality assessment.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-sm text-center card-hover">
+                    <div class="w-32 h-32 gradient-bg rounded-full mx-auto mb-6 flex items-center justify-center text-white text-4xl font-bold">AS</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Alex Smith</h3>
+                    <p class="text-purple-600 font-medium mb-4">Lead Data Scientist</p>
+                    <p class="text-gray-600">Machine learning expert specializing in psychological pattern recognition and predictive modeling.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-sm text-center card-hover">
+                    <div class="w-32 h-32 gradient-bg rounded-full mx-auto mb-6 flex items-center justify-center text-white text-4xl font-bold">MJ</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Maria Johnson</h3>
+                    <p class="text-purple-600 font-medium mb-4">Product Designer</p>
+                    <p class="text-gray-600">User experience specialist focused on making complex psychological insights accessible and actionable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+        <div class="gradient-bg text-white py-16">
+            <div class="container mx-auto px-6">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h1>
+                <p class="text-xl">Get in touch with our team for questions and support</p>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="contactName" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                            <input type="text" id="contactName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                        </div>
+                        
+                        <div>
+                            <label for="contactEmail" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                            <input type="email" id="contactEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                        </div>
+                        
+                        <div>
+                            <label for="contactSubject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                            <select id="contactSubject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option value="general">General Inquiry</option>
+                                <option value="support">Technical Support</option>
+                                <option value="feedback">Product Feedback</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="contactMessage" class="block text-gray-700 font-medium mb-2">Your Message</label>
+                            <textarea id="contactMessage" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="gradient-bg text-white font-bold px-8 py-3 rounded-full hover:opacity-90 transition duration-300">
+                            Send Message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h2>
+                    <div class="bg-white rounded-xl shadow-sm p-8">
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="gradient-bg text-white rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800 mb-1">Our Location</h3>
+                                    <p class="text-gray-600">123 AI Avenue, Tech City, TC 10101</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="gradient-bg text-white rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800 mb-1">Email Us</h3>
+                                    <p class="text-gray-600">hello@pathfinder.ai</p>
+                                    <p class="text-gray-600">support@pathfinder.ai</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="gradient-bg text-white rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800 mb-1">Call Us</h3>
+                                    <p class="text-gray-600">+1 (555) 123-4567 (Office)</p>
+                                    <p class="text-gray-600">+1 (555) 987-6543 (Support)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="gradient-bg text-white rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800 mb-1">Working Hours</h3>
+                                    <p class="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                    <p class="text-gray-600">Saturday: 10:00 AM - 3:00 PM</p>
+                                    <p class="text-gray-600">Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <h3 class="font-bold text-gray-800 mb-4">Follow Us</h3>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white hover:opacity-90">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white hover:opacity-90">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white hover:opacity-90">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center text-white hover:opacity-90">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4 cursor-pointer" onclick="showPage('home')">
+                        <i class="fas fa-route text-2xl"></i>
+                        <span class="text-xl font-bold">PathFinder AI</span>
+                    </div>
+                    <p class="text-gray-400">Empowering individuals to discover their unique life path through advanced AI analysis.</p>
+                    <div class="flex space-x-4 mt-6">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a class="nav-link text-gray-400 hover:text-white" data-page="home">Home</a></li>
+                        <li><a class="nav-link text-gray-400 hover:text-white" data-page="analysis">Analysis</a></li>
+                        <li><a class="nav-link text-gray-400 hover:text-white" data-page="about">About</a></li>
+                        <li><a class="nav-link text-gray-400 hover:text-white" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Research</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to get updates and life path tips.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
+                        <button type="submit" class="gradient-bg text-white px-4 py-2 rounded-r-lg hover:opacity-90">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 PathFinder AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('mobileMenu').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Set up navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+
+        // Form submission handler
+        document.getElementById('lifePathForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const birthdate = document.getElementById('birthdate').value;
+            const personality = document.getElementById('personality').value;
+            const lifeQuestion = document.getElementById('lifeQuestion').value;
+            
+            // Get selected interests
+            const interestCheckboxes = document.querySelectorAll('input[name="interests"]:checked');
+            const interests = Array.from(interestCheckboxes).map(cb => cb.value);
+            
+            // Simulate AI processing delay
+            setTimeout(function() {
+                // Generate report data
+                generateReportData(name, birthdate, personality, interests, lifeQuestion);
+                
+                // Show results section
+                document.getElementById('resultsSection').classList.remove('hidden');
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        });
+        
+        // Close results section
+        document.getElementById('closeResults')?.addEventListener('click', function() {
+            document.getElementById('resultsSection').classList.add('hidden');
+        });
+        
+        // Generate sample report data
+        function generateReportData(name, birthdate, personality, interests, lifeQuestion) {
+            // Set basic user info
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userBirthdate').textContent = `Born ${new Date(birthdate).toLocaleDateString()}`;
+            
+            // Set user initials
+            const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('userInitials').textContent = initials;
+            
+            // Set report date
+            document.getElementById('reportDate').textContent = new Date().toLocaleDateString();
+            
+            // Set life path number (random between 1-9 for demo)
+            const lifePathNumber = Math.floor(Math.random() * 9) + 1;
+            document.getElementById('lifePathNumber').textContent = lifePathNumber;
+            
+            // Sample personality traits (split user's input)
+            const personalityTraits = personality.split(',').map(t => t.trim()).filter(t => t.length > 0);
+            const traitsContainer = document.getElementById('personalityTraits');
+            traitsContainer.innerHTML = '';
+            
+            personalityTraits.forEach(trait => {
+                const span = document.createElement('span');
+                span.className = 'bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm';
+                span.textContent = trait;
+                traitsContainer.appendChild(span);
+            });
+            
+            // Generate personality description based on traits
+            document.getElementById('personalityDescription').textContent = 
+                `Your personality combines ${personalityTraits.join(', ')} in unique ways. Our analysis shows these traits influence how you approach challenges, relationships, and career decisions. The ${personalityTraits[0]} aspect suggests you ${getTraitDescription(personalityTraits[0])}, while your ${personalityTraits[1]} nature indicates ${getTraitDescription(personalityTraits[1])}.`;
+            
+            // Set primary strength and growth area
+            const strengths = ['Analytical', 'Creative', 'Compassionate', 'Determined', 'Adaptable', 'Intuitive', 'Logical', 'Empathetic', 'Visionary'];
+            const growthAreas = ['Emotional Expression', 'Risk-Taking', 'Patience', 'Self-Care', 'Delegation', 'Work-Life Balance', 'Assertiveness', 'Flexibility', 'Self-Confidence'];
+            
+            document.getElementById('primaryStrength').textContent = strengths[Math.floor(Math.random() * strengths.length)];
+            document.getElementById('growthArea').textContent = growthAreas[Math.floor(Math.random() * growthAreas.length)];
+            
+            // Generate career recommendations based on interests
+            const careerContainer = document.getElementById('careerRecommendations');
+            careerContainer.innerHTML = '';
+            
+            const careerMap = {
+                'technology': ['Software Developer', 'Data Scientist', 'AI Specialist', 'Cybersecurity Analyst'],
+                'arts': ['Graphic Designer', 'Art Director', 'Creative Writer', 'Museum Curator'],
+                'science': ['Research Scientist', 'Biotechnologist', 'Environmental Consultant', 'Pharmacologist'],
+                'business': ['Entrepreneur', 'Management Consultant', 'Marketing Director', 'Financial Analyst'],
+                'health': ['Physician', 'Physical Therapist', 'Nutritionist', 'Health Coach'],
+                'education': ['Professor', 'Curriculum Developer', 'Educational Consultant', 'School Administrator'],
+                'environment': ['Environmental Scientist', 'Sustainability Consultant', 'Conservation Officer', 'Urban Planner'],
+                'spirituality': ['Life Coach', 'Meditation Teacher', 'Holistic Healer', 'Spiritual Counselor']
+            };
+            
+            // Get top 3 career recommendations based on selected interests
+            const recommendedCareers = [];
+            interests.forEach(interest => {
+                if (careerMap[interest]) {
+                    recommendedCareers.push(...careerMap[interest]);
+                }
+            });
+            
+            // Remove duplicates and pick top 3
+            const uniqueCareers = [...new Set(recommendedCareers)].slice(0, 3);
+            
+            uniqueCareers.forEach(career => {
+                const div = document.createElement('div');
+                div.className = 'flex items-start';
+                div.innerHTML = `
+                    <div class="bg-purple-100 text-purple-600 p-2 rounded-lg mr-4">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800">${career}</h4>
+                        <p class="text-gray-600 text-sm">${getCareerDescription(career)}</p>
+                    </div>
+                `;
+                careerContainer.appendChild(div);
+            });
+            
+            // Set relationship insights
+            document.getElementById('relationshipInsights').textContent = 
+                `Your relationship patterns show a tendency towards ${Math.random() > 0.5 ? 'deep, meaningful connections' : 'maintaining independence'}. 
+                You thrive in relationships where ${Math.random() > 0.5 ? 'intellectual stimulation' : 'emotional security'} is present. 
+                The analysis suggests working on ${Math.random() > 0.5 ? 'expressing vulnerability' : 'setting healthy boundaries'} 
+                could enhance your personal connections.`;
+            
+            // Set life question and answer
+            document.getElementById('userQuestion').textContent = lifeQuestion;
+            document.getElementById('lifeAnswer').textContent = 
+                `The answer to your question lies in ${Math.random() > 0.5 ? 'embracing change' : 'trusting your instincts'}. 
+                Our analysis suggests ${Math.random() > 0.5 ? 'a period of transition' : 'a need for deeper self-reflection'} 
+                is key to resolving this dilemma. Consider ${getRandomAdvice()} as a next step.`;
+        }
+        
+        // Helper functions for generating content
+        function getTraitDescription(trait) {
+            const descriptions = {
+                'Creative': 'have a strong need for self-expression and innovative thinking',
+                'Analytical': 'approach problems methodically and value logical solutions',
+                'Compassionate': 'are deeply attuned to others emotions and needs',
+                'Adventurous': 'seek new experiences and thrive outside comfort zones',
+                'Organized': 'prefer structure and find comfort in well-defined systems',
+                'Introverted': 'recharge through solitude and deep one-on-one connections',
+                'Extroverted': 'draw energy from social interactions and group activities'
+            };
+            
+            return descriptions[trait] || 'have unique qualities that shape your perspective';
+        }
+        
+        function getCareerDescription(career) {
+            const descriptions = {
+                'Software Developer': 'Combines problem-solving with creativity, perfect for your technical and innovative side.',
+                'Graphic Designer': 'Allows artistic expression while solving visual communication challenges.',
+                'Environmental Scientist': 'Aligns with your concern for sustainability and analytical nature.',
+                'Entrepreneur': 'Offers the independence and challenge your personality thrives on.',
+                'Life Coach': 'Lets you use your empathy and insight to help others grow.',
+                'Data Scientist': 'Merges analytical skills with impactful real-world applications.'
+            };
+            
+            return descriptions[career] || 'A career path that aligns well with your strengths and interests.';
+        }
+        
+        function getRandomAdvice() {
+            const advice = [
+                'exploring new environments that challenge your perspectives',
+                'seeking mentorship from someone who embodies qualities you admire',
+                'journaling to clarify your core values and priorities',
+                'taking small, consistent actions toward your ideal vision',
+                'practicing mindfulness to better understand your authentic desires',
+                'networking with professionals in fields that intrigue you'
+            ];
+            
+            return advice[Math.floor(Math.random() * advice.length)];
+        }
+
+        // Initialize - show home page
+        showPage('home');
+    </script>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VHS|Digital Library</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: pink; 
+        }
+        
+        .hero-gradient {
+            background-color: rgba(65, 88, 208, 0.5); /* Translucent version of #4158D0 */
+    background-image: linear-gradient(43deg, 
+        rgba(65, 88, 208, 0.5) 0%, /* Translucent #4158D0 */
+        rgba(200, 80, 192, 0.5) 46%, /* Translucent #C850C0 */
+        rgba(255, 204, 112, 0.5) 100% /* Translucent #FFCC70 */
+    );
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .motivational-quote {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .audio-player {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background-color: #e5e7eb;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #3b82f6;
+            width: 0%;
+        }
+        
+        .upload-dropzone {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-dropzone.active {
+            border-color: #3b82f6;
+            background-color: #f0f9ff;
+        }
+        
+        .ai-response {
+            border-left: 4px solid #4f46e5;
+            background-color: #f8fafc;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg" style="background: #833AB4;
+background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        
+                        <span class="text-xl font-bold text-gray-900" style="color: antiquewhite;">VHS READING</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" style="color: aqua;">Home</a>
+                        <a href="#library" style="color: aqua;">Library</a>
+                        <a href="#motivation" style="color: aqua;">Motivation</a>
+                        <a href="#upload" style="color: aqua;">Upload</a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <div class="relative">
+                        <input type="text" placeholder="Search books..." class="pl-10 pr-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                    </div>
+                    <button class="ml-4 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">Sign In</button>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient text-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl mb-6">
+                    Discover, Learn, and Grow
+                </h1>
+                <p class="max-w-2xl mx-auto text-xl">
+                    Your AI-powered digital library with thousands of books and motivational resources to inspire your journey.
+                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <button class="bg-white text-indigo-600 px-6 py-3 rounded-md text-base font-medium hover:bg-gray-100">Explore Library</button>
+                    <button class="bg-indigo-700 text-white px-6 py-3 rounded-md text-base font-medium hover:bg-indigo-800">Try AI Assistant</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assistant Section -->
+    <div class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">AI Assistant</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Get Personalized Book Recommendations
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Our AI understands your reading preferences and suggests perfect matches.
+                </p>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <div class="bg-gray-50 p-6 rounded-lg shadow">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                            <i class="fas fa-robot text-white text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900">Ask the AI Librarian</h3>
+                            <p class="mt-1 text-sm text-gray-500">Get instant recommendations based on your mood or interests.</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <textarea id="aiPrompt" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3" placeholder="I'm feeling stressed and need something uplifting..."></textarea>
+                        <button onclick="getAIResponse()" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">Ask AI</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow ai-response">
+                    <div id="aiResponse" class="min-h-48">
+                        <p class="text-gray-500 italic">Your AI recommendations will appear here...</p>
+                        <div id="aiLoading" class="hidden mt-4 space-y-3">
+                            <div class="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+                            <div class="h-4 bg-gray-200 rounded animate-pulse"></div>
+                            <div class="h-4 bg-gray-200 rounded animate-pulse w-5/6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Library Section -->
+    <div id="library" class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Digital Library</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Explore Our Collection
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Thousands of books available for instant download.
+                </p>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <!-- Book Card 1 -->
+                <div class="book-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="p-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
+                                <i class="fas fa-book text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Atomic Habits</h3>
+                                <p class="mt-1 text-sm text-gray-500">James Clear</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded">Self-Help</span>
+                            <button onclick="downloadBook('Atomic Habits')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Download <i class="fas fa-download ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Card 2 -->
+                <div class="book-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="p-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
+                                <i class="fas fa-book text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">The Psychology of Money</h3>
+                                <p class="mt-1 text-sm text-gray-500">Morgan Housel</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded">Finance</span>
+                            <button onclick="downloadBook('The Psychology of Money')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Download <i class="fas fa-download ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Card 3 -->
+                <div class="book-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="p-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
+                                <i class="fas fa-book text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Deep Work</h3>
+                                <p class="mt-1 text-sm text-gray-500">Cal Newport</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded">Productivity</span>
+                            <button onclick="downloadBook('Deep Work')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Download <i class="fas fa-download ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Book Card 4 -->
+                <div class="book-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="p-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
+                                <i class="fas fa-book text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">The 5 AM Club</h3>
+                                <p class="mt-1 text-sm text-gray-500">Robin Sharma</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded">Motivation</span>
+                            <button onclick="downloadBook('The 5 AM Club')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Download <i class="fas fa-download ml-1"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-base font-medium">Browse All Books</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Motivational Section -->
+    <div id="motivation" class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Motivation Hub</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Fuel Your Inspiration
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Books and audio to keep you motivated and moving forward.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-xl overflow-hidden">
+                    <div class="p-8 md:p-12">
+                        <div class="md:flex">
+                            <div class="md:flex-shrink-0">
+                                <img class="h-48 w-full object-cover md:w-48 rounded-lg shadow-lg" src="the power of now.jpeg" alt="Motivational books">
+                            </div>
+                            <div class="mt-4 md:mt-0 md:ml-6">
+                                <h3 class="text-2xl font-bold text-white">Daily Dose of Inspiration</h3>
+                                <p class="mt-2 text-indigo-100">
+                                    "You are never too old to set another goal or to dream a new dream." — C.S. Lewis
+                                </p>
+                                <div class="mt-6">
+                                    <div class="audio-player rounded-lg p-4">
+                                        <div class="flex items-center">
+                                            <button id="playBtn" class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white hover:bg-indigo-700">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                            <div class="ml-4 flex-1">
+                                                <div class="text-sm font-medium text-gray-900">The Power of Now - Audiobook Sample</div>
+                                                <div class="text-xs text-gray-500">Eckhart Tolle</div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
+                                            <div class="progress-bar rounded-full">
+                                                <div id="progressFill" class="progress-fill rounded-full"></div>
+                                            </div>
+                                            <div class="flex justify-between mt-1 text-xs text-gray-500">
+                                                <span id="currentTime">0:00</span>
+                                                <span id="duration">3:45</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Motivational Book 1 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-fire text-red-500 text-2xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Can't Hurt Me</h3>
+                                    <p class="mt-1 text-sm text-gray-500">David Goggins</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Master your mind and defy the odds with this powerful memoir of mental toughness.
+                                </p>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <button onclick="downloadBook('Can\'t Hurt Me')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Download <i class="fas fa-download ml-1"></i></button>
+                                <button onclick="playSample('Can\'t Hurt Me')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Listen <i class="fas fa-headphones ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Motivational Book 2 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-brain text-blue-500 text-2xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">Mindset</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Carol Dweck</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Discover how a simple idea about the brain can create a love of learning and resilience.
+                                </p>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <button onclick="downloadBook('Mindset')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Download <i class="fas fa-download ml-1"></i></button>
+                                <button onclick="playSample('Mindset')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Listen <i class="fas fa-headphones ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Motivational Book 3 -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-rocket text-purple-500 text-2xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900">The 10X Rule</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Grant Cardone</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Learn the "10X Rule" principle that helps you blast through business cliches and risk.
+                                </p>
+                            </div>
+                            <div class="mt-4 flex justify-between items-center">
+                                <button onclick="downloadBook('The 10X Rule')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Download <i class="fas fa-download ml-1"></i></button>
+                                <button onclick="playSample('The 10X Rule')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Listen <i class="fas fa-headphones ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 bg-indigo-50 rounded-lg p-6">
+                    <h3 class="text-lg font-medium text-indigo-900">Daily Motivational Quote</h3>
+                    <div id="dailyQuote" class="mt-4">
+                        <p class="motivational-quote text-xl font-bold italic">"Success is not final, failure is not fatal: It is the courage to continue that counts." — Winston Churchill</p>
+                    </div>
+                    <button onclick="newQuote()" class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">New Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div id="upload" class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Contribute</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Share Your Knowledge
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Upload books, documents, or motivational content to our community library.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="upload-dropzone border-2 border-dashed rounded-lg p-12 text-center cursor-pointer" id="dropzone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900">Drag and drop files here</h3>
+                    <p class="mt-1 text-sm text-gray-500">or click to browse files</p>
+                    <input type="file" id="fileInput" class="hidden" multiple>
+                    <button onclick="document.getElementById('fileInput').click()" class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium">Select Files</button>
+                </div>
+                
+                <div id="uploadProgress" class="mt-6 hidden">
+                    <h4 class="text-sm font-medium text-gray-900 mb-2">Uploading files...</h4>
+                    <div class="bg-gray-200 rounded-full h-2.5">
+                        <div id="uploadBar" class="bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between mt-1 text-xs text-gray-500">
+                        <span id="uploadStatus">Preparing upload...</span>
+                        <span id="uploadPercentage">0%</span>
+                    </div>
+                </div>
+                
+                <div id="uploadSuccess" class="mt-6 hidden">
+                    <div class="rounded-md bg-green-50 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-green-800">Upload successful!</h3>
+                                <div class="mt-2 text-sm text-green-700">
+                                    <p>Your files have been uploaded successfully and will be reviewed by our team.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">About</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Our Story</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Team</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Support</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Copyright</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Connect</h3>
+                    <div class="mt-4 flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-base text-gray-400">Subscribe to our newsletter</p>
+                        <div class="mt-2 flex">
+                            <input type="email" placeholder="Your email" class="px-4 py-2 border border-gray-700 bg-gray-700 text-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full">
+                            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-md">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8">
+                <p class="text-base text-gray-400 text-center">&copy; 2023 InspireReads. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // AI Assistant Functionality
+        function getAIResponse() {
+            const prompt = document.getElementById('aiPrompt').value;
+            const responseDiv = document.getElementById('aiResponse');
+            const loadingDiv = document.getElementById('aiLoading');
+            
+            if (!prompt.trim()) {
+                alert('Please enter your question or request for the AI.');
+                return;
+            }
+            
+            // Show loading state
+            responseDiv.innerHTML = '';
+            loadingDiv.classList.remove('hidden');
+            
+            // Simulate AI processing delay
+            setTimeout(() => {
+                loadingDiv.classList.add('hidden');
+                
+                // Sample responses based on common prompts
+                let aiResponse = '';
+                
+                if (prompt.toLowerCase().includes('stressed') || prompt.toLowerCase().includes('anxious')) {
+                    aiResponse = `
+                        <h4 class="font-bold text-lg mb-2">For Stress Relief:</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><span class="font-medium">The Untethered Soul</span> by Michael A. Singer - Helps detach from stressful thoughts</li>
+                            <li><span class="font-medium">Wherever You Go, There You Are</span> by Jon Kabat-Zinn - Mindfulness practices</li>
+                            <li><span class="font-medium">The Power of Now</span> by Eckhart Tolle - Focus on present moment</li>
+                        </ul>
+                        <p class="mt-4">Try our <a href="#motivation" class="text-indigo-600 hover:underline">motivational audio section</a> for guided meditations.</p>
+                    `;
+                } else if (prompt.toLowerCase().includes('productive') || prompt.toLowerCase().includes('focus')) {
+                    aiResponse = `
+                        <h4 class="font-bold text-lg mb-2">For Productivity:</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><span class="font-medium">Deep Work</span> by Cal Newport - Mastering focused work</li>
+                            <li><span class="font-medium">Atomic Habits</span> by James Clear - Building productive routines</li>
+                            <li><span class="font-medium">The One Thing</span> by Gary Keller - Prioritization techniques</li>
+                        </ul>
+                        <p class="mt-4">Consider listening to <a href="#" class="text-indigo-600 hover:underline" onclick="playSample('Deep Work')">Deep Work audiobook sample</a> to get started.</p>
+                    `;
+                } else if (prompt.toLowerCase().includes('motivat') || prompt.toLowerCase().includes('inspir')) {
+                    aiResponse = `
+                        <h4 class="font-bold text-lg mb-2">For Motivation:</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><span class="font-medium">Can't Hurt Me</span> by David Goggins - Extreme mental toughness</li>
+                            <li><span class="font-medium">The 5 AM Club</span> by Robin Sharma - Morning routine mastery</li>
+                            <li><span class="font-medium">The 10X Rule</span> by Grant Cardone - Massive action principles</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-yellow-50 rounded-lg">
+                            <p class="font-medium">Daily Challenge:</p>
+                            <p>Write down 3 goals you want to achieve this week and take one small action toward each today.</p>
+                        </div>
+                    `;
+                } else {
+                    // Default response
+                    aiResponse = `
+                        <h4 class="font-bold text-lg mb-2">Recommended Reading:</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><span class="font-medium">The Subtle Art of Not Giving a F*ck</span> by Mark Manson - Counterintuitive approach to life</li>
+                            <li><span class="font-medium">Thinking, Fast and Slow</span> by Daniel Kahneman - Understanding your mind</li>
+                            <li><span class="font-medium">The 7 Habits of Highly Effective People</span> by Stephen Covey - Timeless principles</li>
+                        </ul>
+                        <p class="mt-4">Based on your interest in "${prompt}", I recommend exploring our <a href="#library" class="text-indigo-600 hover:underline">personal development section</a>.</p>
+                    `;
+                }
+                
+                responseDiv.innerHTML = aiResponse;
+            }, 1500);
+        }
+        
+        // Download Book Functionality
+        function downloadBook(bookTitle) {
+            alert(`Downloading "${bookTitle}"... This is a demo. In a real app, the download would start now.`);
+            // In a real app, this would initiate a file download
+            // window.location.href = `/download?book=${encodeURIComponent(bookTitle)}`;
+        }
+        
+        // Audio Player Functionality
+        let isPlaying = false;
+        let audioProgress = 0;
+        let audioInterval;
+        
+        function playSample(bookTitle) {
+            const playBtn = document.getElementById('playBtn');
+            const progressFill = document.getElementById('progressFill');
+            
+            if (isPlaying) {
+                // Pause audio
+                clearInterval(audioInterval);
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                document.getElementById('currentTime').textContent = '0:00';
+                progressFill.style.width = '0%';
+            } else {
+                // Play audio
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                document.getElementById('currentTime').textContent = '0:00';
+                document.getElementById('duration').textContent = '3:45';
+                
+                // Simulate audio progress
+                audioProgress = 0;
+                audioInterval = setInterval(() => {
+                    audioProgress += 1;
+                    const percent = Math.min((audioProgress / 225) * 100, 100); // 225 = 3:45 in seconds
+                    progressFill.style.width = `${percent}%`;
+                    
+                    // Update current time display
+                    const minutes = Math.floor(audioProgress / 60);
+                    const seconds = audioProgress % 60;
+                    document.getElementById('currentTime').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    
+                    if (audioProgress >= 225) {
+                        clearInterval(audioInterval);
+                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                        isPlaying = false;
+                    }
+                }, 1000);
+            }
+            
+            isPlaying = !isPlaying;
+            
+            // Update UI to show which book is playing
+            document.querySelector('.audio-player .text-sm').textContent = `${bookTitle} - Audiobook Sample`;
+            document.querySelector('.audio-player .text-xs').textContent = 'Sample Playing';
+        }
+        
+        // Motivational Quotes
+        const quotes = [
+            "The only way to do great work is to love what you do. — Steve Jobs",
+            "Don't watch the clock; do what it does. Keep going. — Sam Levenson",
+            "The future belongs to those who believe in the beauty of their dreams. — Eleanor Roosevelt",
+            "You are never too old to set another goal or to dream a new dream. — C.S. Lewis",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts. — Winston Churchill",
+            "Believe you can and you're halfway there. — Theodore Roosevelt",
+            "Your time is limited, don't waste it living someone else's life. — Steve Jobs",
+            "The secret of getting ahead is getting started. — Mark Twain",
+            "It always seems impossible until it's done. — Nelson Mandela",
+            "Act as if what you do makes a difference. It does. — William James"
+        ];
+        
+        function newQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('dailyQuote').innerHTML = `<p class="motivational-quote text-xl font-bold italic">${quotes[randomIndex]}</p>`;
+        }
+        
+        // File Upload Functionality
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('dropzone').classList.add('active');
+        }
+        
+        function handleDragLeave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('dropzone').classList.remove('active');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('dropzone').classList.remove('active');
+            
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                handleFiles(files);
+            }
+        }
+        
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            if (this.files.length) {
+                handleFiles(this.files);
+            }
+        });
+        
+        function handleFiles(files) {
+            const uploadProgress = document.getElementById('uploadProgress');
+            const uploadBar = document.getElementById('uploadBar');
+            const uploadStatus = document.getElementById('uploadStatus');
+            const uploadPercentage = document.getElementById('uploadPercentage');
+            const uploadSuccess = document.getElementById('uploadSuccess');
+            
+            uploadProgress.classList.remove('hidden');
+            uploadSuccess.classList.add('hidden');
+            
+            // Reset UI
+            uploadBar.style.width = '0%';
+            uploadPercentage.textContent = '0%';
+            uploadStatus.textContent = `Preparing to upload ${files.length} file(s)...`;
+            
+            // Simulate upload progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 100) progress = 100;
+                
+                uploadBar.style.width = `${progress}%`;
+                uploadPercentage.textContent = `${Math.round(progress)}%`;
+                uploadStatus.textContent = progress < 100 ? 
+                    `Uploading... (${Math.round(progress)}%)` : 
+                    'Finalizing upload...';
+                
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        uploadProgress.classList.add('hidden');
+                        uploadSuccess.classList.remove('hidden');
+                        
+                        // Show uploaded files
+                        let fileList = '<p class="font-medium mt-2">Uploaded files:</p><ul class="list-disc pl-5 mt-2">';
+                        for (let i = 0; i < files.length; i++) {
+                            fileList += `<li>${files[i].name}</li>`;
+                        }
+                        fileList += '</ul>';
+                        
+                        uploadSuccess.querySelector('.ml-3').innerHTML += fileList;
+                    }, 500);
+                }
+            }, 200);
+        }
+        
+        // Initialize with a random quote
+        window.onload = function() {
+            newQuote();
+        };
+    </script>
+</body>
+</html>

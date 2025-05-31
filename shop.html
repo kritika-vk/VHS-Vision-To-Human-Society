@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vhsshop</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    </title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#8b5cf6',secondary:'#6366f1'},borderRadius:{'none':'0px','sm':'8px',DEFAULT:'12px','md':'16px','lg':'20px','xl':'24px','2xl':'28px','3xl':'32px','full':'9999px','button':'12px'}}}}</script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 4px;
+            background: #4b5563;
+            border-radius: 5px;
+        }
+        .custom-checkbox {
+            display: inline-block;
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #2d3748;
+            border-radius: 4px;
+        }
+        .custom-checkbox:hover input ~ .checkmark {
+            background-color: #374151;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #8b5cf6;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .custom-checkbox .checkmark:after {
+            left: 6px;
+            top: 3px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .course-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);
+        }
+        .price-range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #8b5cf6;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .cart-preview {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 320px;
+            background-color: #1f2937;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+            overflow: hidden;
+            display: none;
+        }
+        .cart-preview.active {
+            display: block;
+        }
+        .course-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .course-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1f2937;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .invoice-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .invoice-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-900 py-4 px-6 sticky top-0 z-40 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="logo.png" style="height: 60px; width: 60px;">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#personal" class="flex items-center px-3 py-2 rounded-button bg-primary text-white">
+                        <i class="ri-user-line mr-2"></i>
+                        Personal Development
+                    </a>
+                    <a href="#web" class="flex items-center px-3 py-2 rounded-button text-gray-300 hover:text-white transition">
+                        <i class="ri-code-line mr-2"></i>
+                        Web Technology
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 rounded-button text-gray-300 hover:text-white transition">
+                        <i class="ri-flask-line mr-2"></i>
+                        Science & Technical
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 rounded-button text-gray-300 hover:text-white transition">
+                        <i class="ri-palette-line mr-2"></i>
+                        Arts & Creativity
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 rounded-button text-gray-300 hover:text-white transition">
+                        <i class="ri-translate-2 mr-2"></i>
+                        Language & Communication
+                    </a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="cartButton" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full text-white hover:bg-gray-700 transition">
+                        <i class="ri-shopping-cart-line ri-lg"></i>
+                        <span id="cartBadge" class="cart-badge hidden">0</span>
+                    </button>
+                    <!-- Cart Preview -->
+                    <div id="cartPreview" class="cart-preview">
+                        <div class="p-4 border-b border-gray-700">
+                            <h3 class="text-lg font-semibold">Your Cart</h3>
+                        </div>
+                        <div id="cartItems" class="p-4 max-h-80 overflow-y-auto">
+                            <p class="text-gray-400 text-center" id="emptyCartMessage">Your cart is empty</p>
+                        </div>
+                        <div class="p-4 border-t border-gray-700">
+                            <div class="flex justify-between mb-2">
+                                <span>Subtotal:</span>
+                                <span id="cartSubtotal">₹0</span>
+                            </div>
+                            <div class="flex justify-between mb-4">
+                                <span>Tax (18% GST):</span>
+                                <span id="cartTax">₹0</span>
+                            </div>
+                            <div class="flex justify-between font-semibold mb-4">
+                                <span>Total:</span>
+                                <span id="cartTotal">₹0</span>
+                            </div>
+                            <button id="checkoutButton" class="w-full py-2 bg-primary text-white rounded-button hover:bg-purple-700 transition whitespace-nowrap !rounded-button disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full text-white hover:bg-gray-700 transition">
+                    <i class="ri-user-line ri-lg"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8 px-4">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Filters Sidebar -->
+            <aside class="md:w-1/4 lg:w-1/5">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-semibold mb-6">Filter Courses</h2>
+                    
+                    <!-- Skill Level -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium mb-3">Skill Level</h3>
+                        <div class="space-y-2">
+                            <label class="custom-checkbox block">Beginner
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">Intermediate
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">Advanced
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Duration -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium mb-3">Duration</h3>
+                        <div class="space-y-2">
+                            <label class="custom-checkbox block">Under 5 hours
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">5-10 hours
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">10-20 hours
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">20+ hours
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium mb-3">Price Range</h3>
+                        <input type="range" min="0" max="10000" value="5000" class="w-full" id="priceRange">
+                        <div class="price-range-values">
+                            <span>₹0</span>
+                            <span id="priceRangeValue">₹5000</span>
+                            <span>₹10000</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Language -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium mb-3">Language</h3>
+                        <div class="relative">
+                            <select class="w-full bg-gray-700 border-none text-white py-2 px-3 rounded appearance-none pr-8">
+                                <option>All Languages</option>
+                                <option>English</option>
+                                <option>Hindi</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                                <option>German</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Format -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium mb-3">Format</h3>
+                        <div class="space-y-2">
+                            <label class="custom-checkbox block">Video Lessons
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">Live Sessions
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">Hybrid
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Certification -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium mb-3">Certification</h3>
+                        <div class="space-y-2">
+                            <label class="custom-checkbox block">Certificate Included
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="custom-checkbox block">Accredited
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col space-y-3">
+                        <button class="py-2 bg-primary text-white rounded-button hover:bg-purple-700 transition whitespace-nowrap !rounded-button">
+                            Apply Filters
+                        </button>
+                        <button class="py-2 bg-transparent border border-gray-600 text-gray-300 rounded-button hover:bg-gray-700 transition whitespace-nowrap !rounded-button">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- Courses Content -->
+            <div class="md:w-3/4 lg:w-4/5">
+                <!-- Personal Development Courses -->
+                <section id="personal" class="mb-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold">Personal Development Courses</h2>
+                        <div class="flex items-center">
+                            <span class="mr-2 text-sm">Sort by:</span>
+                            <div class="relative">
+                                <select class="bg-gray-700 border-none text-white py-1 px-3 rounded appearance-none pr-8">
+                                    <option>Most Popular</option>
+                                    <option>Newest</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                    <option>Rating</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                    <i class="ri-arrow-down-s-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Course -->
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg mb-8">
+                        <div class="flex flex-col md:flex-row">
+                            <div class="md:w-2/5">
+                                <img src="https://readdy.ai/api/search-image?query=group%20of%20diverse%20people%20sitting%20in%20a%20circle%20during%20a%20meditation%20session%2C%20peaceful%20atmosphere%2C%20mindfulness%20practice%2C%20soft%20lighting%2C%20modern%20interior&width=600&height=400&seq=1&orientation=landscape" alt="Mindfulness Mastery" class="w-full h-full object-cover object-top">
+                            </div>
+                            <div class="md:w-3/5 p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-primary bg-opacity-20 text-primary text-xs font-semibold px-2 py-1 rounded">FEATURED</span>
+                                    <span class="ml-3 bg-gray-700 text-xs font-semibold px-2 py-1 rounded">Bestseller</span>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">Mindfulness Mastery: Transform Your Life Through Conscious Living</h3>
+                                <p class="text-gray-300 mb-4">Develop powerful mindfulness techniques to reduce stress, sharpen focus, and transform your daily living with this comprehensive course led by Dr. Sarah Johnson.</p>
+                                <div class="flex items-center mb-4">
+                                    <div class="flex items-center mr-4">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.8 (2,345)</span>
+                                    </div>
+                                    <div class="flex items-center mr-4">
+                                        <i class="ri-time-line mr-1"></i>
+                                        <span>12 weeks</span>
+                                    </div>
+                                    <div class="flex items-center mr-4">
+                                        <i class="ri-video-line mr-1"></i>
+                                        <span>48 lessons</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="ri-global-line mr-1"></i>
+                                        <span>All levels</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-2xl font-bold">₹3,999</span>
+                                        <span class="text-gray-400 line-through ml-2">₹6,999</span>
+                                    </div>
+                                    <button class="course-btn py-2 px-6 bg-primary text-white rounded-button hover:bg-purple-700 transition whitespace-nowrap !rounded-button" 
+                                            data-id="pd1" 
+                                            data-title="Mindfulness Mastery: Transform Your Life Through Conscious Living" 
+                                            data-price="3999" 
+                                            data-image="https://readdy.ai/api/search-image?query=group%20of%20diverse%20people%20sitting%20in%20a%20circle%20during%20a%20meditation%20session%2C%20peaceful%20atmosphere%2C%20mindfulness%20practice%2C%20soft%20lighting%2C%20modern%20interior&width=600&height=400&seq=1&orientation=landscape">
+                                        Enroll Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Course Card 1 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20speaker%20presenting%20to%20an%20audience%20in%20a%20modern%20conference%20room%2C%20business%20presentation%2C%20public%20speaking%20event%2C%20attentive%20audience&width=400&height=225&seq=2&orientation=landscape" alt="Public Speaking Mastery" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Communication</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Public Speaking Mastery</h3>
+                                <p class="text-gray-300 text-sm mb-4">Overcome stage fright and deliver compelling presentations with confidence in any setting.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹6,999</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="pd2" 
+                                            data-title="Public Speaking Mastery" 
+                                            data-price="6999" 
+                                            data-image="https://readdy.ai/api/search-image?query=professional%20speaker%20presenting%20to%20an%20audience%20in%20a%20modern%20conference%20room%2C%20business%20presentation%2C%20public%20speaking%20event%2C%20attentive%20audience&width=400&height=225&seq=2&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 2 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=business%20professionals%20in%20a%20meeting%20discussing%20emotional%20intelligence%20concepts%2C%20diverse%20team%2C%20modern%20office%20environment%2C%20collaborative%20workspace&width=400&height=225&seq=3&orientation=landscape" alt="Emotional Intelligence at Work" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Psychology</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Emotional Intelligence at Work</h3>
+                                <p class="text-gray-300 text-sm mb-4">Develop your EQ to improve relationships, leadership skills, and career prospects.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹5,999</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="pd3" 
+                                            data-title="Emotional Intelligence at Work" 
+                                            data-price="5999" 
+                                            data-image="https://readdy.ai/api/search-image?query=business%20professionals%20in%20a%20meeting%20discussing%20emotional%20intelligence%20concepts%2C%20diverse%20team%2C%20modern%20office%20environment%2C%20collaborative%20workspace&width=400&height=225&seq=3&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 3 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=professional%20team%20working%20efficiently%20in%20a%20modern%20office%2C%20time%20management%20concept%2C%20organized%20workspace%2C%20productivity%20tools%2C%20digital%20planning&width=400&height=225&seq=4&orientation=landscape" alt="Time Management Essentials" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Productivity</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.6</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Time Management Essentials</h3>
+                                <p class="text-gray-300 text-sm mb-4">Master proven techniques to prioritize tasks, eliminate distractions, and achieve more.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹4,999</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="pd4" 
+                                            data-title="Time Management Essentials" 
+                                            data-price="4999" 
+                                            data-image="https://readdy.ai/api/search-image?query=professional%20team%20working%20efficiently%20in%20a%20modern%20office%2C%20time%20management%20concept%2C%20organized%20workspace%2C%20productivity%20tools%2C%20digital%20planning&width=400&height=225&seq=4&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Web Technology Courses -->
+                <section id="web" class="mb-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold">Web Technology Courses</h2>
+                        <a href="#" class="text-primary hover:underline">View All</a>
+                    </div>
+                    
+                    <!-- Course Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Course Card 1 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=software%20developer%20working%20with%20multiple%20screens%20showing%20code%2C%20javascript%20development%20environment%2C%20modern%20tech%20workspace%2C%20programming%20interface&width=400&height=225&seq=5&orientation=landscape" alt="Full-Stack JavaScript Development" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Programming</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Full-Stack JavaScript Development</h3>
+                                <p class="text-gray-300 text-sm mb-4">Master Node.js, React, and MongoDB to build complete web applications from scratch.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹8,999</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="wt1" 
+                                            data-title="Full-Stack JavaScript Development" 
+                                            data-price="8999" 
+                                            data-image="https://readdy.ai/api/search-image?query=software%20developer%20working%20with%20multiple%20screens%20showing%20code%2C%20javascript%20development%20environment%2C%20modern%20tech%20workspace%2C%20programming%20interface&width=400&height=225&seq=5&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 2 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=UI%20UX%20designer%20working%20on%20interface%20design%2C%20digital%20wireframes%2C%20user%20experience%20design%20process%2C%20modern%20design%20studio%2C%20multiple%20screens&width=400&height=225&seq=6&orientation=landscape" alt="UI/UX Design Fundamentals" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Design</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">UI/UX Design Fundamentals</h3>
+                                <p class="text-gray-300 text-sm mb-4">Learn to create intuitive, accessible, and visually appealing user interfaces.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹7,499</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="wt2" 
+                                            data-title="UI/UX Design Fundamentals" 
+                                            data-price="7499" 
+                                            data-image="https://readdy.ai/api/search-image?query=UI%20UX%20designer%20working%20on%20interface%20design%2C%20digital%20wireframes%2C%20user%20experience%20design%20process%2C%20modern%20design%20studio%2C%20multiple%20screens&width=400&height=225&seq=6&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 3 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=cybersecurity%20professional%20monitoring%20multiple%20screens%20in%20security%20operations%20center%2C%20network%20security%20visualization%2C%20data%20protection%2C%20high-tech%20environment&width=400&height=225&seq=7&orientation=landscape" alt="Cybersecurity Fundamentals" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Security</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Cybersecurity Fundamentals</h3>
+                                <p class="text-gray-300 text-sm mb-4">Protect systems and data from threats with comprehensive security practices.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹9,999</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="wt3" 
+                                            data-title="Cybersecurity Fundamentals" 
+                                            data-price="9999" 
+                                            data-image="https://readdy.ai/api/search-image?query=cybersecurity%20professional%20monitoring%20multiple%20screens%20in%20security%20operations%20center%2C%20network%20security%20visualization%2C%20data%20protection%2C%20high-tech%20environment&width=400&height=225&seq=7&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Popular Courses -->
+                <section class="mb-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold">Popular Courses</h2>
+                        <a href="#" class="text-primary hover:underline">View All</a>
+                    </div>
+                    
+                    <!-- Course Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Course Card 1 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=data%20scientist%20analyzing%20visualizations%20on%20multiple%20screens%2C%20data%20analytics%20dashboard%2C%20modern%20tech%20office%2C%20professional%20data%20visualization&width=400&height=225&seq=8&orientation=landscape" alt="Data Science Bootcamp" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Data Science</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Data Science Bootcamp</h3>
+                                <p class="text-gray-300 text-sm mb-4">Master Python, machine learning, and data visualization for data-driven insights.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹12,999</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="pop1" 
+                                            data-title="Data Science Bootcamp" 
+                                            data-price="12999" 
+                                            data-image="https://readdy.ai/api/search-image?query=data%20scientist%20analyzing%20visualizations%20on%20multiple%20screens%2C%20data%20analytics%20dashboard%2C%20modern%20tech%20office%2C%20professional%20data%20visualization&width=400&height=225&seq=8&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 2 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=digital%20marketing%20professional%20working%20with%20analytics%20dashboard%2C%20social%20media%20marketing%2C%20online%20advertising%20campaign%2C%20modern%20marketing%20office&width=400&height=225&seq=9&orientation=landscape" alt="Digital Marketing Masterclass" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Marketing</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Digital Marketing Masterclass</h3>
+                                <p class="text-gray-300 text-sm mb-4">Learn SEO, social media marketing, and content strategy to grow your business.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹7,999</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="pop2" 
+                                            data-title="Digital Marketing Masterclass" 
+                                            data-price="7999" 
+                                            data-image="https://readdy.ai/api/search-image?query=digital%20marketing%20professional%20working%20with%20analytics%20dashboard%2C%20social%20media%20marketing%2C%20online%20advertising%20campaign%2C%20modern%20marketing%20office&width=400&height=225&seq=9&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 3 -->
+                        <div class="course-card bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://readdy.ai/api/search-image?query=financial%20advisor%20explaining%20investment%20strategies%2C%20financial%20planning%20session%2C%20professional%20finance%20consultation%2C%20modern%20office%20setting&width=400&height=225&seq=10&orientation=landscape" alt="Personal Finance Mastery" class="w-full h-48 object-cover object-top">
+                            <div class="p-5">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-semibold text-gray-400">Finance</span>
+                                    <div class="flex items-center">
+                                        <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Personal Finance Mastery</h3>
+                                <p class="text-gray-300 text-sm mb-4">Take control of your finances with proven strategies for saving, investing, and wealth building.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold">₹6,499</span>
+                                    <button class="course-btn py-1 px-4 bg-gray-700 text-white rounded-button hover:bg-gray-600 transition whitespace-nowrap !rounded-button"
+                                            data-id="pop3" 
+                                            data-title="Personal Finance Mastery" 
+                                            data-price="6499" 
+                                            data-image="https://readdy.ai/api/search-image?query=financial%20advisor%20explaining%20investment%20strategies%2C%20financial%20planning%20session%2C%20professional%20finance%20consultation%2C%20modern%20office%20setting&width=400&height=225&seq=10&orientation=landscape">
+                                        View Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Course Modal -->
+    <div id="courseModal" class="course-modal">
+        <div class="modal-content p-0">
+            <div class="relative">
+                <button id="closeModal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-700 rounded-full text-white hover:bg-gray-600 transition z-10">
+                    <i class="ri-close-line"></i>
+                </button>
+                <div class="h-64 bg-gray-700 relative">
+                    <img id="modalImage" src="" alt="Course" class="w-full h-full object-cover object-top">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent h-24"></div>
+                </div>
+            </div>
+            <div class="p-6">
+                <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+                    <div class="max-w-2xl">
+                        <h2 id="modalTitle" class="text-2xl font-semibold mb-2"></h2>
+                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-300">
+                            <div class="flex items-center">
+                                <i class="ri-user-line mr-1"></i>
+                                <span>Dr. Rajesh Sharma</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="ri-time-line mr-1"></i>
+                                <span>Last updated: May 15, 2025</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="ri-global-line mr-1"></i>
+                                <span>English</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                <span>4.8 (2,345 ratings)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <div class="mb-3">
+                            <span id="modalPrice" class="text-2xl font-bold"></span>
+                            <span class="text-gray-400 line-through ml-2">₹14,999</span>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <button id="addToCartBtn" class="py-2 px-6 bg-primary text-white rounded-button hover:bg-purple-700 transition whitespace-nowrap !rounded-button">
+                                Add to Cart
+                            </button>
+                            <button class="py-2 px-6 border border-primary text-primary rounded-button hover:bg-gray-700 transition whitespace-nowrap !rounded-button">
+                                Buy Now
+                            </button>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-400">
+                            <p>30-Day Money-Back Guarantee</p>
+                            <p>Full Lifetime Access</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold mb-4">What You'll Learn</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div class="flex items-start">
+                                    <i class="ri-check-line text-primary mt-1 mr-2"></i>
+                                    <p>Master core concepts and practical applications</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="ri-check-line text-primary mt-1 mr-2"></i>
+                                    <p>Build real-world projects for your portfolio</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="ri-check-line text-primary mt-1 mr-2"></i>
+                                    <p>Develop problem-solving skills and best practices</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="ri-check-line text-primary mt-1 mr-2"></i>
+                                    <p>Learn from industry experts with proven track records</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="ri-check-line text-primary mt-1 mr-2"></i>
+                                    <p>Receive personalized feedback on your progress</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <i class="ri-check-line text-primary mt-1 mr-2"></i>
+                                    <p>Join a community of like-minded learners</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold mb-4">Course Content</h3>
+                            <div class="space-y-3">
+                                <div class="bg-gray-900 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center cursor-pointer">
+                                        <h4 class="font-medium">Module 1: Introduction & Fundamentals</h4>
+                                        <div class="flex items-center text-sm text-gray-400">
+                                            <span>4 lectures • 45 min</span>
+                                            <i class="ri-arrow-down-s-line ml-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-900 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center cursor-pointer">
+                                        <h4 class="font-medium">Module 2: Core Principles & Techniques</h4>
+                                        <div class="flex items-center text-sm text-gray-400">
+                                            <span>6 lectures • 1h 20min</span>
+                                            <i class="ri-arrow-down-s-line ml-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-900 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center cursor-pointer">
+                                        <h4 class="font-medium">Module 3: Practical Applications</h4>
+                                        <div class="flex items-center text-sm text-gray-400">
+                                            <span>8 lectures • 2h 15min</span>
+                                            <i class="ri-arrow-down-s-line ml-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-900 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center cursor-pointer">
+                                        <h4 class="font-medium">Module 4: Advanced Strategies</h4>
+                                        <div class="flex items-center text-sm text-gray-400">
+                                            <span>5 lectures • 1h 45min</span>
+                                            <i class="ri-arrow-down-s-line ml-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-900 p-4 rounded-lg">
+                                    <div class="flex justify-between items-center cursor-pointer">
+                                        <h4 class="font-medium">Module 5: Capstone Projects</h4>
+                                        <div class="flex items-center text-sm text-gray-400">
+                                            <span>3 projects • Self-paced</span>
+                                            <i class="ri-arrow-down-s-line ml-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold mb-4">Requirements</h3>
+                            <ul class="space-y-2 list-disc list-inside text-gray-300">
+                                <li>Basic understanding of the subject area</li>
+                                <li>Computer with internet connection</li>
+                                <li>Dedication and willingness to practice</li>
+                                <li>No prior experience needed for beginners courses</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="bg-gray-900 p-5 rounded-lg mb-6">
+                            <h3 class="text-lg font-semibold mb-4">This Course Includes</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <i class="ri-video-line text-primary mr-3"></i>
+                                    <span>24 hours on-demand video</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-file-text-line text-primary mr-3"></i>
+                                    <span>15 downloadable resources</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-message-3-line text-primary mr-3"></i>
+                                    <span>Forum access & support</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-smartphone-line text-primary mr-3"></i>
+                                    <span>Mobile and TV access</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-medal-line text-primary mr-3"></i>
+                                    <span>Certificate of completion</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-time-line text-primary mr-3"></i>
+                                    <span>Lifetime access</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-900 p-5 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-4">Your Instructor</h3>
+                            <div class="flex items-center mb-4">
+                                <div class="w-14 h-14 rounded-full bg-gray-700 mr-3 overflow-hidden">
+                                    <img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20indian%20male%20instructor%20with%20glasses%2C%20friendly%20smile%2C%20professional%20attire%2C%20neutral%20background&width=100&height=100&seq=11&orientation=squarish" alt="Instructor" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Dr. Rajesh Sharma</h4>
+                                    <p class="text-sm text-gray-400">Expert with 15+ years experience</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4">Dr. Sharma has taught over 50,000 students worldwide and has worked with leading organizations in the industry. His practical approach and clear teaching style have earned him numerous accolades.</p>
+                            <div class="flex items-center text-sm text-gray-400">
+                                <div class="flex items-center mr-4">
+                                    <i class="ri-star-fill text-yellow-400 mr-1"></i>
+                                    <span>4.8 Instructor Rating</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="ri-user-line mr-1"></i>
+                                    <span>50,000+ Students</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Modal -->
+    <div id="invoiceModal" class="invoice-modal">
+        <div class="modal-content max-w-2xl p-0">
+            <div class="relative">
+                <button id="closeInvoiceModal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-700 rounded-full text-white hover:bg-gray-600 transition z-10">
+                    <i class="ri-close-line"></i>
+                </button>
+                <div class="bg-gray-800 p-6 rounded-t-lg">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-semibold">Invoice</h2>
+                        <p class="text-gray-400">Date: May 30, 2025</p>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-lg font-['Pacifico'] text-white mb-2">logo</p>
+                            <p>123 Learning Street</p>
+                            <p>Bangalore, Karnataka 560001</p>
+                            <p>India</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold mb-2">Invoice #: INV-2025-0530</p>
+                            <p>Customer ID: CUS-12345</p>
+                            <p>Payment Method: Credit Card</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-900 p-6">
+                    <h3 class="font-semibold mb-4">Order Summary</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full mb-6">
+                            <thead>
+                                <tr class="border-b border-gray-700">
+                                    <th class="text-left py-2">Item</th>
+                                    <th class="text-center py-2">Quantity</th>
+                                    <th class="text-right py-2">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceItems">
+                                <!-- Items will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="border-t border-gray-700 pt-4">
+                        <div class="flex justify-between mb-2">
+                            <span>Subtotal:</span>
+                            <span id="invoiceSubtotal">₹0</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span>Tax (18% GST):</span>
+                            <span id="invoiceTax">₹0</span>
+                        </div>
+                        <div class="flex justify-between font-semibold text-lg">
+                            <span>Total:</span>
+                            <span id="invoiceTotal">₹0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-b-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h3 class="font-semibold mb-2">Payment Information</h3>
+                            <p>Payment Status: <span class="text-green-500">Paid</span></p>
+                        </div>
+                        <div>
+                            <button id="downloadInvoice" class="py-2 px-4 bg-primary text-white rounded-button hover:bg-purple-700 transition whitespace-nowrap !rounded-button">
+                                <i class="ri-download-line mr-1"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        <p>Thank you for your purchase! If you have any questions about this invoice, please contact our customer support team at support@example.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="priceRangeScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceRange = document.getElementById('priceRange');
+            const priceRangeValue = document.getElementById('priceRangeValue');
+            
+            if (priceRange && priceRangeValue) {
+                priceRange.addEventListener('input', function() {
+                    priceRangeValue.textContent = '₹' + this.value;
+                });
+            }
+        });
+    </script>
+
+    <script id="cartScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartButton = document.getElementById('cartButton');
+            const cartPreview = document.getElementById('cartPreview');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartItems = document.getElementById('cartItems');
+            const emptyCartMessage = document.getElementById('emptyCartMessage');
+            const cartSubtotal = document.getElementById('cartSubtotal');
+            const cartTax = document.getElementById('cartTax');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutButton = document.getElementById('checkoutButton');
+            
+            let cart = [];
+            
+            // Toggle cart preview
+            if (cartButton && cartPreview) {
+                cartButton.addEventListener('click', function() {
+                    cartPreview.classList.toggle('active');
+                });
+                
+                // Close cart when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!cartButton.contains(event.target) && !cartPreview.contains(event.target)) {
+                        cartPreview.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Add to cart function
+            window.addToCart = function(id, title, price, image) {
+                // Check if item already exists in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: id,
+                        title: title,
+                        price: parseFloat(price),
+                        image: image,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+            };
+            
+            // Remove from cart function
+            window.removeFromCart = function(id) {
+                cart = cart.filter(item => item.id !== id);
+                updateCart();
+            };
+            
+            // Update cart UI
+            function updateCart() {
+                // Update badge
+                if (cartBadge) {
+                    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                    cartBadge.textContent = totalItems;
+                    cartBadge.classList.toggle('hidden', totalItems === 0);
+                }
+                
+                // Update cart items
+                if (cartItems && emptyCartMessage) {
+                    if (cart.length === 0) {
+                        emptyCartMessage.classList.remove('hidden');
+                        cartItems.innerHTML = '';
+                    } else {
+                        emptyCartMessage.classList.add('hidden');
+                        
+                        let itemsHTML = '';
+                        cart.forEach(item => {
+                            itemsHTML += `
+                                <div class="flex items-center py-3 border-b border-gray-700">
+                                    <div class="w-12 h-12 rounded overflow-hidden mr-3">
+                                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium truncate">${item.title}</h4>
+                                        <div class="flex justify-between items-center mt-1">
+                                            <span class="text-sm">₹${item.price.toLocaleString()} × ${item.quantity}</span>
+                                            <button onclick="removeFromCart('${item.id}')" class="text-gray-400 hover:text-white">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        
+                        cartItems.innerHTML = itemsHTML;
+                    }
+                }
+                
+                // Update totals
+                if (cartSubtotal && cartTax && cartTotal) {
+                    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                    const tax = subtotal * 0.18;
+                    const total = subtotal + tax;
+                    
+                    cartSubtotal.textContent = '₹' + subtotal.toLocaleString();
+                    cartTax.textContent = '₹' + tax.toLocaleString();
+                    cartTotal.textContent = '₹' + total.toLocaleString();
+                }
+                
+                // Enable/disable checkout button
+                if (checkoutButton) {
+                    checkoutButton.disabled = cart.length === 0;
+                }
+            }
+            
+            // Checkout button
+            if (checkoutButton) {
+                checkoutButton.addEventListener('click', function() {
+                    if (cart.length > 0) {
+                        showInvoice();
+                    }
+                });
+            }
+            
+            // Show invoice
+            function showInvoice() {
+                const invoiceModal = document.getElementById('invoiceModal');
+                const invoiceItems = document.getElementById('invoiceItems');
+                const invoiceSubtotal = document.getElementById('invoiceSubtotal');
+                const invoiceTax = document.getElementById('invoiceTax');
+                const invoiceTotal = document.getElementById('invoiceTotal');
+                
+                if (invoiceModal && invoiceItems && invoiceSubtotal && invoiceTax && invoiceTotal) {
+                    // Populate invoice items
+                    let itemsHTML = '';
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        itemsHTML += `
+                            <tr class="border-b border-gray-700">
+                                <td class="py-3">${item.title}</td>
+                                <td class="py-3 text-center">${item.quantity}</td>
+                                <td class="py-3 text-right">₹${itemTotal.toLocaleString()}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    invoiceItems.innerHTML = itemsHTML;
+                    
+                    // Update totals
+                    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+                    const tax = subtotal * 0.18;
+                    const total = subtotal + tax;
+                    
+                    invoiceSubtotal.textContent = '₹' + subtotal.toLocaleString();
+                    invoiceTax.textContent = '₹' + tax.toLocaleString();
+                    invoiceTotal.textContent = '₹' + total.toLocaleString();
+                    
+                    // Show modal
+                    invoiceModal.classList.add('active');
+                    
+                    // Close cart preview
+                    cartPreview.classList.remove('active');
+                }
+            }
+            
+            // Close invoice modal
+            const closeInvoiceModal = document.getElementById('closeInvoiceModal');
+            if (closeInvoiceModal) {
+                closeInvoiceModal.addEventListener('click', function() {
+                    const invoiceModal = document.getElementById('invoiceModal');
+                    if (invoiceModal) {
+                        invoiceModal.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Download invoice (mock functionality)
+            const downloadInvoice = document.getElementById('downloadInvoice');
+            if (downloadInvoice) {
+                downloadInvoice.addEventListener('click', function() {
+                    alert('Invoice download started!');
+                });
+            }
+        });
+    </script>
+
+    <script id="courseModalScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const courseModal = document.getElementById('courseModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalPrice = document.getElementById('modalPrice');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            
+            let currentCourse = null;
+            
+            // Add click event to all course buttons
+            const courseBtns = document.querySelectorAll('.course-btn');
+            courseBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const title = this.getAttribute('data-title');
+                    const price = this.getAttribute('data-price');
+                    const image = this.getAttribute('data-image');
+                    
+                    // Set current course
+                    currentCourse = { id, title, price, image };
+                    
+                    // Update modal content
+                    if (modalTitle) modalTitle.textContent = title;
+                    if (modalPrice) modalPrice.textContent = '₹' + parseInt(price).toLocaleString();
+                    if (modalImage) modalImage.src = image;
+                    
+                    // Show modal
+                    if (courseModal) courseModal.classList.add('active');
+                });
+            });
+            
+            // Close modal
+            if (closeModal && courseModal) {
+                closeModal.addEventListener('click', function() {
+                    courseModal.classList.remove('active');
+                });
+                
+                // Close modal when clicking outside content
+                courseModal.addEventListener('click', function(event) {
+                    if (event.target === courseModal) {
+                        courseModal.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Add to cart from modal
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', function() {
+                    if (currentCourse && window.addToCart) {
+                        window.addToCart(
+                            currentCourse.id,
+                            currentCourse.title,
+                            currentCourse.price,
+                            currentCourse.image
+                        );
+                        
+                        // Close modal
+                        if (courseModal) courseModal.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VHS</title>
+     <link rel="icon" type="image/x-icon" href="logo.png">
+    </title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#8a5cf5", secondary: "#f472b6" },
+            borderRadius: {
+              none: "0px",
+              sm: "8px",
+              DEFAULT: "12px",
+              md: "16px",
+              lg: "20px",
+              xl: "24px",
+              "2xl": "28px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "12px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      min-height: 100vh;
+      background: linear-gradient(to right, #ffb347, #ffcc33, #ff9a8b, #ff6a88);
+      }
+      .hero-section {
+      background-image: url('https://readdy.ai/api/search-image?query=A%20modern%20career%20guidance%20office%20with%20soft%20lighting%2C%20showing%20a%20professional%20workspace%20with%20inspirational%20quotes%20on%20the%20wall%2C%20a%20desk%20with%20career%20planning%20materials%2C%20and%20a%20view%20of%20a%20city%20skyline%20through%20large%20windows.%20The%20left%20side%20has%20a%20gradient%20transition%20to%20a%20soft%20pink%20background%20that%20will%20blend%20with%20website%20text.%20Professional%2C%20uplifting%20atmosphere.&width=1200&height=600&seq=vision1&orientation=landscape');
+      background-size: cover;
+      background-position: center;
+      }
+      .search-input:focus {
+      outline: none;
+      }
+      .language-selector:focus {
+      outline: none;
+      }
+    </style>
+  </head>
+  <body class="font-sans text-gray-900">
+   
+    <!-- Header -->
+    <header class="w-full bg-gradient-to-r from-yellow-300 to-pink-300">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <a href="#" class="flex items-center">
+              <div
+                class="w-12 h-12 rounded-full bg-indigo-900 flex items-center justify-center"
+              >
+               <img src="logo.png">
+              </div>
+            </a>
+          </div>
+          <div class="flex-1 mx-8">
+            <h1
+              class="text-center text-2xl font-bold text-purple-800 tracking-wide"
+            >
+              VISION TO HUMAN SOCIETY
+            </h1>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Search..."
+                class="search-input py-2 px-4 pr-10 rounded-full text-sm border-none"
+              />
+              <button
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 w-6 h-6 flex items-center justify-center"
+              >
+                <i class="ri-search-line"></i>
+              </button>
+            </div>
+            <button
+              class="flex items-center space-x-1 text-gray-800 !rounded-button"
+            >
+              
+            <div class="relative group">
+              <button
+                class="flex items-center space-x-2 text-gray-800 !rounded-button"
+              >
+                <div class="w-8 h-8 flex items-center justify-center">
+                  <i class="ri-user-line"></i>
+                </div>
+                
+                <div class="w-4 h-4 flex items-center justify-center">
+                  <i class="ri-arrow-down-s-line"></i>
+                </div>
+              </button>
+              <div
+                class="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+              >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >My Profile</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >My Courses</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >Settings</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >Logout</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Navigation -->
+    <nav class="w-full bg-gradient-to-r from-yellow-300 to-pink-300 shadow-md">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center">
+          <div class="flex space-x-6">
+            <a
+              href="#"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Home</a
+            >
+            <a
+              href="shop.html"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Shop</a
+            >
+           
+            <a
+              href="Services _ VISION TO HUMAN SOCIETY.html"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Services</a
+            >
+            <a
+              href="#"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Pricing</a
+            >
+            <div class="relative group">
+              <button
+                class="py-4 px-2 font-medium hover:text-primary transition flex items-center"
+              >
+                Company
+                <div class="w-4 h-4 ml-1 flex items-center justify-center">
+                  <i class="ri-arrow-down-s-line"></i>
+                </div>
+              </button>
+              <div
+                class="absolute left-0 mt-0 w-48 bg-white rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+              >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >About Us</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >Our Team</a
+                >
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >Careers</a
+                >
+               
+              </div>
+            </div>
+            <a
+              href="#"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Help</a
+            >
+            <a
+              href="appointment.html"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Appointment</a
+            >
+            <a
+              href="#"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Contact us</a
+            >
+            <a
+              href="library.html"
+              class="py-4 px-2 font-medium hover:text-primary transition"
+              >Library</a
+            >
+          </div>
+          <div>
+           
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="w-full py-16 hero-section" style="background-image: url(base.jpeg);">
+      <div class="container mx-auto px-4 flex items-center">
+        <div class="w-full md:w-1/2 pr-8">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900" style="color: aqua;">
+            Unlock Your Potential: The Ultimate Career Experience
+          </h2>
+          <p class="text-lg mb-8 text-gray-800" style="color: antiquewhite;">
+            A transformative force in career guidance, offering innovative
+            strategies and personalized support to help you thrive in your
+            professional journey.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a
+              href=""
+              class="bg-purple-500 text-white py-3 px-6 rounded-md hover:bg-purple-600 transition shadow-md !rounded-button whitespace-nowrap"
+              >Discover Your Life Path</a
+            >
+            <a
+              href="VHS.html"
+              class="bg-purple-200 text-gray-800 py-3 px-6 rounded-md hover:bg-purple-300 transition shadow-md !rounded-button whitespace-nowrap"
+              >Get Test</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Features Section -->
+    <section class="w-full py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">
+            Our Comprehensive Career Services
+          </h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            We offer a range of specialized services designed to help you
+            navigate your career path with confidence and clarity.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-md"
+          >
+            <div
+              class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-compass-discover-line text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Career Assessment</h3>
+            <p class="text-gray-600">
+              Discover your strengths, interests, and ideal career paths through
+              our comprehensive assessment tools and expert analysis.
+            </p>
+          </div>
+          <div
+            class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-md"
+          >
+            <div
+              class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-user-voice-line text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Personal Coaching</h3>
+            <p class="text-gray-600">
+              Work one-on-one with our certified career coaches to develop
+              personalized strategies for achieving your professional goals.
+            </p>
+          </div>
+          <div
+            class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-md"
+          >
+            <div
+              class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4"
+            >
+              <i class="ri-book-open-line text-primary text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Skill Development</h3>
+            <p class="text-gray-600">
+              Access our curated courses and workshops designed to help you
+              build the skills needed for success in today's competitive job
+              market.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="w-full py-16 bg-gradient-to-r from-purple-50 to-pink-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Success Stories</h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            Hear from professionals who transformed their careers with our
+            guidance and support.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4"
+              >
+                <i class="ri-user-line text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold">Samantha Richardson</h4>
+                <p class="text-sm text-gray-500">
+                  Marketing Director, TechGrowth Inc.
+                </p>
+              </div>
+            </div>
+            <p class="text-gray-600 italic">
+              "The career assessment and coaching I received completely changed
+              my professional trajectory. I went from feeling stuck in a
+              dead-end position to landing my dream role at a leading tech
+              company within just 3 months."
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mr-4"
+              >
+                <i class="ri-user-line text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold">Michael Thornton</h4>
+                <p class="text-sm text-gray-500">
+                  Senior Developer, InnovateSoft
+                </p>
+              </div>
+            </div>
+            <p class="text-gray-600 italic">
+              "After 10 years in the same role, I was hesitant to make a change.
+              The personalized guidance and skill development courses gave me
+              the confidence to pivot my career. Now I'm earning 40% more and
+              loving my new challenges."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Courses Preview -->
+    <section class="w-full py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Featured Courses</h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            Enhance your skills with our expert-led courses designed for career
+            advancement.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=Professional%20leadership%20workshop%20with%20diverse%20participants%20engaged%20in%20a%20collaborative%20exercise%20in%20a%20modern%20conference%20room%20with%20natural%20lighting.%20Business%20casual%20attire%2C%20focused%20expressions%2C%20professional%20setting.&width=400&height=250&seq=course1&orientation=landscape"
+                alt="Leadership Mastery"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <span
+                  class="bg-purple-100 text-primary text-xs px-3 py-1 rounded-full"
+                  >Leadership</span
+                >
+                <span class="text-gray-500 text-sm">8 weeks</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2" >
+                Leadership Mastery for Modern Professionals
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Develop essential leadership skills to inspire teams and drive
+                organizational success in today's dynamic workplace.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-lg">₹2999</span>
+                <a
+                  href="#"
+                  class="text-primary hover:text-purple-700 flex items-center"
+                >
+                  Learn more
+                  <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=Professional%20negotiation%20skills%20training%20session%20with%20two%20business%20people%20role-playing%20a%20negotiation%20scenario%20while%20others%20observe%20in%20a%20corporate%20training%20room.%20Professional%20setting%2C%20business%20attire%2C%20engaged%20expressions.&width=400&height=250&seq=course2&orientation=landscape"
+                alt="Negotiation Skills"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <span
+                  class="bg-purple-100 text-primary text-xs px-3 py-1 rounded-full"
+                  >Communication</span
+                >
+                <span class="text-gray-500 text-sm">6 weeks</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">
+                Advanced Negotiation Strategies
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Master the art of negotiation with proven techniques that help
+                you secure better outcomes in business and life.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-lg">₹2499</span>
+                <a
+                  href="#"
+                  class="text-primary hover:text-purple-700 flex items-center"
+                >
+                  Learn more
+                  <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-md"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=Data%20analysis%20workshop%20with%20professionals%20analyzing%20charts%20and%20graphs%20on%20computer%20screens%20in%20a%20modern%20office%20environment.%20Clean%2C%20professional%20setting%20with%20data%20visualizations%20visible%20on%20screens.&width=400&height=250&seq=course3&orientation=landscape"
+                alt="Data Analysis"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-center mb-3">
+                <span
+                  class="bg-purple-100 text-primary text-xs px-3 py-1 rounded-full"
+                  >Analytics</span
+                >
+                <span class="text-gray-500 text-sm">10 weeks</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-2">
+                Data-Driven Decision Making
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Learn to leverage data analytics to make informed business
+                decisions and drive strategic initiatives in any organization.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-lg">₹3499</span>
+                <a
+                  href="#"
+                  class="text-primary hover:text-purple-700 flex items-center"
+                >
+                  Learn more
+                  <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-10">
+          <a
+            href="shop.html"
+            class="bg-purple-500 text-white py-3 px-8 rounded-md hover:bg-purple-600 transition shadow-md inline-block !rounded-button whitespace-nowrap"
+            >View All Courses</a
+          >
+        </div>
+      </div>
+    </section>
+    <!-- Call to Action -->
+    <section
+      class="w-full py-16 bg-gradient-to-r from-purple-600 to-pink-500 text-white"
+    >
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Ready to Transform Your Career?</h2>
+        <p class="text-xl mb-8 max-w-3xl mx-auto">
+          Take the first step toward a more fulfilling professional life.
+          Schedule a free consultation with our career experts today.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="appointment.html"
+            class="bg-white text-purple-600 py-3 px-8 rounded-md hover:bg-gray-100 transition shadow-md !rounded-button whitespace-nowrap"
+            >Book Consultation</a
+          >
+          <a
+            href="#"
+            class="bg-transparent border-2 border-white text-white py-3 px-8 rounded-md hover:bg-white/10 transition !rounded-button whitespace-nowrap"
+            >Learn More</a
+          >
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="w-full bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center mr-3"
+              >
+                <span class="font-['Pacifico'] text-lg">logo</span>
+              </div>
+              <span class="text-xl font-bold">Vision to Human Society</span>
+            </div>
+            <p class="text-gray-400 mb-4">
+              Empowering professionals to discover their true potential and
+              achieve meaningful career success.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white transition">
+                <div class="w-8 h-8 flex items-center justify-center">
+                  <i class="ri-facebook-fill"></i>
+                </div>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition">
+                <div class="w-8 h-8 flex items-center justify-center">
+                  <i class="ri-twitter-x-fill"></i>
+                </div>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition">
+                <div class="w-8 h-8 flex items-center justify-center">
+                  <i class="ri-linkedin-fill"></i>
+                </div>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-white transition">
+                <div class="w-8 h-8 flex items-center justify-center">
+                  <i class="ri-instagram-fill"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Services</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Courses</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Services</h3>
+            <ul class="space-y-2">
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Career Assessment</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Personal Coaching</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Resume Building</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Interview Preparation</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-gray-400 hover:text-white transition"
+                  >Skill Development</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                <span class="text-gray-400"
+                  >1234 Career Avenue, Professional District, New York, NY
+                  10001</span
+                >
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-3">
+                  <i class="ri-phone-line"></i>
+                </div>
+                <span class="text-gray-400">+91 6455XXXXXX</span>
+              </li>
+              <li class="flex items-center">
+                <div class="w-5 h-5 flex items-center justify-center mr-3">
+                  <i class="ri-mail-line"></i>
+                </div>
+                <span class="text-gray-400">vhscareer@gmail.com</span>
+              </li>
+            </ul>
+            <div class="mt-6">
+              <h4 class="text-sm font-semibold mb-3">
+                Subscribe to our newsletter
+              </h4>
+              <div class="flex">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  class="bg-gray-800 text-white px-4 py-2 rounded-l-md border-none focus:outline-none flex-1"
+                />
+                <button
+                  class="bg-primary text-white px-4 py-2 rounded-r-md hover:bg-purple-700 transition !rounded-none whitespace-nowrap"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center"
+        >
+          <p class="text-gray-400 text-sm">
+            © 2025 Vision to Human Society. All rights reserved.
+          </p>
+          <div class="flex space-x-4 mt-4 md:mt-0">
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white text-sm transition"
+              >Privacy Policy</a
+            >
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white text-sm transition"
+              >Terms of Service</a
+            >
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white text-sm transition"
+              >Cookie Policy</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script id="languageSelector">
+      document.addEventListener("DOMContentLoaded", function () {
+        const languageSelector = document.querySelector(".language-selector");
+        if (languageSelector) {
+          languageSelector.addEventListener("change", function () {
+            // Language change functionality would go here
+            console.log("Language changed to:", this.value);
+          });
+        }
+      });
+    </script>
+    <script id="navigationToggle">
+      document.addEventListener("DOMContentLoaded", function () {
+        // This would handle mobile navigation toggle if implemented
+        console.log("Navigation script loaded");
+      });
+    </script>
+  </body>
+</html>

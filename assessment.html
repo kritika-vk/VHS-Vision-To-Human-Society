@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Assessment | Vision to Human Society</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background-color: rgba(65, 88, 208, 0.5);
+            background-image: linear-gradient(43deg, 
+                rgba(65, 88, 208, 0.5) 0%,
+                rgba(200, 80, 192, 0.5) 46%,
+                rgba(255, 204, 112, 0.5) 100%
+            );
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(107, 115, 255, 0.3);
+        }
+        .progress-bar {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #4f46e5;
+            transition: width 0.3s ease;
+        }
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .option-item {
+            transition: all 0.2s ease;
+        }
+        .option-item:hover {
+            background-color: #f3f4f6;
+        }
+        .option-item.selected {
+            background-color: #e0e7ff;
+            border-color: #818cf8;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="index.html" class="flex items-center">
+                            <img src="logo.png" alt="CareerGenius Logo" class="h-10 w-auto">
+                        </a>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="index.html" class="text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium">Home</a>
+                        <a href="assessment.html" class="text-indigo-600 border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Assessment</a>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center">
+                    <a href="login.html" class="text-gray-500 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Login</a>
+                    <a href="assessment.html" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Take Assessment</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="vhsHOME.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
+                <a href="assessment.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Assessment</a>
+                <div class="mt-4 pl-3">
+                    <a href="login.html" class="text-gray-500 hover:text-indigo-600 block py-2 text-base font-medium">Login</a>
+                    <a href="assessment.html" class="mt-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Take Assessment</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Assessment Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4">Career Aptitude Assessment</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Answer these questions to help us understand your skills, interests, and personality traits for better career recommendations.</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <!-- Progress Bar -->
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-medium text-gray-700">Progress</span>
+                        <span class="text-sm font-medium text-gray-700" id="progress-text">1/15</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 6.66%"></div>
+                    </div>
+                </div>
+
+                <!-- Assessment Form -->
+                <form id="career-assessment" class="divide-y divide-gray-200">
+                    <!-- Question 1 -->
+                    <div class="question-card p-6" data-question="1">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">1. Which of these activities do you enjoy the most?</h3>
+                            <p class="text-sm text-gray-500">Select one option that best describes your preference</p>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question1" value="creative" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Creating art, music, or writing</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question1" value="analytical" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Solving complex problems or puzzles</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question1" value="social" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Helping or interacting with people</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question1" value="practical" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Working with my hands or tools</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="question-card p-6 hidden" data-question="2">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">2. How do you prefer to work?</h3>
+                            <p class="text-sm text-gray-500">Select one option that best describes your work style</p>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question2" value="independent" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Independently with minimal supervision</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question2" value="team" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">As part of a collaborative team</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question2" value="structured" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">With clear structure and guidelines</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question2" value="flexible" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">With flexibility to adapt as needed</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="question-card p-6 hidden" data-question="3">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">3. What type of work environment appeals to you most?</h3>
+                            <p class="text-sm text-gray-500">Select one option that best matches your preference</p>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question3" value="office" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Traditional office setting</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question3" value="remote" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Remote or work-from-home</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question3" value="outdoor" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Outdoor or field work</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question3" value="varied" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Varied locations and settings</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="question-card p-6 hidden" data-question="4">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">4. How do you handle stress or pressure?</h3>
+                            <p class="text-sm text-gray-500">Select one option that best describes your approach</p>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question4" value="calm" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">I remain calm and focused</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question4" value="plan" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">I create a plan to address it</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question4" value="support" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">I seek support from others</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question4" value="adapt" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">I adapt and adjust my approach</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="question-card p-6 hidden" data-question="5">
+                        <div class="mb-6">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">5. Which of these skills do you consider your strongest?</h3>
+                            <p class="text-sm text-gray-500">Select one option that best represents your strength</p>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question5" value="communication" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Communication and interpersonal skills</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question5" value="technical" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Technical or specialized knowledge</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question5" value="creative" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Creativity and innovation</span>
+                            </label>
+                            <label class="option-item flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer">
+                                <input type="radio" name="question5" value="leadership" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-3 block text-gray-700">Leadership and management</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="px-6 py-4 bg-gray-50 flex justify-between">
+                        <button type="button" id="prev-btn" class="hidden inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <i class="fas fa-arrow-left mr-2"></i> Previous
+                        </button>
+                        <button type="button" id="next-btn" class="ml-auto inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Next <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        <button type="submit" id="submit-btn" class="ml-auto hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Submit Assessment <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Modal (hidden by default) -->
+    <div id="results-modal" class="fixed inset-0 overflow-y-auto hidden z-50">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fas fa-check text-green-600"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">Assessment Complete!</h3>
+                            <div class="mt-2">
+                                <p class="text-sm text-gray-500">Thank you for completing our career assessment. Here are your results:</p>
+                                
+                                <div class="mt-6">
+                                    <h4 class="font-medium text-gray-900 mb-3">Your Top Career Matches:</h4>
+                                    <div class="space-y-4">
+                                        <div class="flex items-start">
+                                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                                                <span class="text-indigo-600 font-medium">1</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h5 class="text-base font-medium text-gray-900" id="career1">Software Developer</h5>
+                                                <p class="text-sm text-gray-500" id="match1">85% match based on your skills and preferences</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                                                <span class="text-indigo-600 font-medium">2</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h5 class="text-base font-medium text-gray-900" id="career2">Data Analyst</h5>
+                                                <p class="text-sm text-gray-500" id="match2">78% match based on your skills and preferences</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <div class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                                                <span class="text-indigo-600 font-medium">3</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <h5 class="text-base font-medium text-gray-900" id="career3">UX Designer</h5>
+                                                <p class="text-sm text-gray-500" id="match3">72% match based on your skills and preferences</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <h4 class="font-medium text-gray-900 mb-3">Recommended Next Steps:</h4>
+                                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                                        <li>Explore detailed career profiles for each recommendation</li>
+                                        <li>Take our skills gap analysis to identify areas for development</li>
+                                        <li>Connect with a career advisor for personalized guidance</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" id="view-details-btn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        View Detailed Results
+                    </button>
+                    <button type="button" id="close-modal-btn" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Vision to Human Society</h3>
+                    <p class="text-gray-400">AI-powered career guidance to help you find your perfect career path.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="vhsHOME.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="assessment.html" class="text-gray-400 hover:text-white">Assessment</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-400">vhscareerpath@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2025 CareerGenius. All rights reserved.</p>
+                <div class="mt-4 md:mt-0">
+                    <img src="logo.png" alt="Vision to Human Society" class="h-8 w-auto opacity-80" >
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // Assessment navigation
+        const totalQuestions = 5;
+        let currentQuestion = 1;
+        
+        // Update progress bar
+        function updateProgress() {
+            const progressPercent = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+            document.getElementById('progress-text').textContent = `${currentQuestion}/${totalQuestions}`;
+            
+            // Show/hide navigation buttons
+            document.getElementById('prev-btn').classList.toggle('hidden', currentQuestion === 1);
+            document.getElementById('next-btn').classList.toggle('hidden', currentQuestion === totalQuestions);
+            document.getElementById('submit-btn').classList.toggle('hidden', currentQuestion !== totalQuestions);
+        }
+        
+        // Show current question
+        function showQuestion(questionNumber) {
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.add('hidden');
+            });
+            document.querySelector(`.question-card[data-question="${questionNumber}"]`).classList.remove('hidden');
+            updateProgress();
+        }
+        
+        // Next button click
+        document.getElementById('next-btn').addEventListener('click', function() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        });
+        
+        // Previous button click
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+        
+        // Option selection styling
+        document.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove selected class from all options in this question
+                const questionCard = this.closest('.question-card');
+                questionCard.querySelectorAll('.option-item').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+            });
+        });
+        
+        // Form submission
+        document.getElementById('career-assessment').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real app, you would send this data to your backend
+            // For demo purposes, we'll just show the results modal
+            document.getElementById('results-modal').classList.remove('hidden');
+            
+            // Simulate some results (in a real app, this would come from your backend)
+            document.getElementById('career1').textContent = "Software Developer";
+            document.getElementById('match1').textContent = "85% match based on your skills and preferences";
+            document.getElementById('career2').textContent = "Data Analyst";
+            document.getElementById('match2').textContent = "78% match based on your skills and preferences";
+            document.getElementById('career3').textContent = "UX Designer";
+            document.getElementById('match3').textContent = "72% match based on your skills and preferences";
+        });
+        
+        // Modal close button
+        document.getElementById('close-modal-btn').addEventListener('click', function() {
+            document.getElementById('results-modal').classList.add('hidden');
+        });
+        
+        // View details button
+        document.getElementById('view-details-btn').addEventListener('click', function() {
+            alert("In a complete implementation, this would take you to a detailed results page.");
+            document.getElementById('results-modal').classList.add('hidden');
+        });
+        
+        // Initialize
+        showQuestion(1);
+    </script>
+</body>
+</html>
